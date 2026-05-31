@@ -3,6 +3,8 @@ import './App.css'
 import Login from './Component/Login';
 import Signup from './Component/Signup';
 import { supabase } from './lib/supabase';
+import CreateDebate from './Component/CreateDebate';
+import GetDebate from './Component/GetDebate';
 
 function App() {
 
@@ -30,6 +32,8 @@ useEffect(() => {
       <Signup />
       <Login />
       <button onClick={logout} >logout user</button>
+      <CreateDebate />
+      <GetDebate />
     </>
   )
 }
