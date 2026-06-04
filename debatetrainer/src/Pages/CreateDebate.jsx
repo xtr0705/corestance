@@ -1,6 +1,12 @@
 import { useState } from "react";
 import  supabase  from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
+import { getAIResponse } from "../lib/gemini";
+const testAI = async ()=>{
+  const response = await getAIResponse("Say How are you.");
+  console.log(response);
+}
+
 
 function CreateDebate() {
   const [debateTopic, setDebateTopic] = useState("");
@@ -93,6 +99,8 @@ function CreateDebate() {
             <option value="10">10 minutes</option>
             <option value="15">15 minutes</option>
           </select>
+
+          <button onClick={testAI} >AI</button>
 
           <button
             onClick={createDebate}
