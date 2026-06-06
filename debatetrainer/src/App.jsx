@@ -16,7 +16,7 @@ function App() {
           element={<Home />}
         />
         <Route
-          path="/create-debate/:debateId"
+          path="/create-debate/"
           element={<CreateDebate />}
         />
 

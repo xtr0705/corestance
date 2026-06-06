@@ -1,12 +1,6 @@
 import { useState } from "react";
-import  supabase  from "../lib/supabase";
+import supabase from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
-import { getAIResponse } from "../lib/gemini";
-const testAI = async ()=>{
-  const response = await getAIResponse("Say How are you.");
-  console.log(response);
-}
-
 
 function CreateDebate() {
   const [debateTopic, setDebateTopic] = useState("");
@@ -57,57 +51,166 @@ function CreateDebate() {
 
     return (
       <>
-        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-md">
-          <input
-            placeholder="Debate Topic"
-            className="border-2 border-gray-300 rounded-md p-2 w-full mb-4"
-            value={debateTopic}
-            onChange={(e) => setDebateTopic(e.target.value)}
-          />
+        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-6">
 
-          <select
-            className="border-2 border-gray-300 rounded-md p-2 w-full mb-4"
-            value={debateMode}
-            onChange={(e) => setDebateMode(e.target.value)}
-          >
-            <option value="" disabled>
-              Select Debate Mode
-            </option>
-            <option value="professional">Professional Debater</option>
-            <option value="aggressive">Aggressive</option>
-            <option value="job-interview">Job Interview</option>
-            <option value="lawyer">
-              Lawyer
-            </option>
-            <option value="philosopher">
-              Philosopher
-            </option>
-            <option value="twitter-troll">
-              Twitter Troll
-            </option>
-            <option value="devils-advocate">
-              Devil's Advocate
-            </option>
-          </select>
+          <div className="w-full max-w-2xl">
 
-          <select
-            className="border-2 border-gray-300 rounded-md p-2 w-full mb-4"
-            value={debateDuration}
-            onChange={(e) => setDebateDuration(Number(e.target.value))}
-          >
-            <option value="5">5 minutes</option>
-            <option value="10">10 minutes</option>
-            <option value="15">15 minutes</option>
-          </select>
+            ```
+            <div className="mb-10 text-center">
 
-          <button onClick={testAI} >AI</button>
+              <p className="text-slate-500 uppercase tracking-widest mb-4">
+                AI Debate Arena
+              </p>
 
-          <button
-            onClick={createDebate}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
-          >
-            Create Debate
-          </button>
+              <h1 className="text-5xl font-bold mb-4">
+                Create A New Debate
+              </h1>
+
+              <p className="text-slate-400 text-lg">
+                Choose a topic, select an opponent,
+                and put your arguments to the test.
+              </p>
+
+            </div>
+
+            <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl">
+
+              <div className="mb-6">
+
+                <label className="block text-sm font-medium text-slate-300 mb-3">
+                  Debate Topic
+                </label>
+
+                <input
+                  placeholder="e.g. College is overrated"
+                  className="
+        w-full
+        bg-slate-950
+        border border-slate-800
+        rounded-xl
+        px-4
+        py-4
+        text-white
+        placeholder:text-slate-500
+        focus:outline-none
+        focus:border-blue-500
+        transition
+      "
+                  value={debateTopic}
+                  onChange={(e) => setDebateTopic(e.target.value)}
+                />
+
+              </div>
+
+              <div className="mb-6">
+
+                <label className="block text-sm font-medium text-slate-300 mb-3">
+                  Opponent Style
+                </label>
+
+                <select
+                  className="
+        w-full
+        bg-slate-950
+        border border-slate-800
+        rounded-xl
+        px-4
+        py-4
+        text-white
+        focus:outline-none
+        focus:border-blue-500
+        transition
+      "
+                  value={debateMode}
+                  onChange={(e) => setDebateMode(e.target.value)}
+                >
+                  <option value="" disabled>
+                    Select Debate Mode
+                  </option>
+
+                  <option value="professional">
+                    Professional Debater
+                  </option>
+
+                  <option value="aggressive">
+                    Aggressive Responder
+                  </option>
+
+                  <option value="job-interview">
+                    Job Interviewer
+                  </option>
+
+                  <option value="lawyer">
+                    Lawyer
+                  </option>
+
+                  <option value="philosopher">
+                    Philosopher
+                  </option>
+
+                  <option value="twitter-troll">
+                    Twitter Troll
+                  </option>
+
+                  <option value="devils-advocate">
+                    Devil's Advocate
+                  </option>
+                </select>
+
+              </div>
+
+              <div className="mb-8">
+
+                <label className="block text-sm font-medium text-slate-300 mb-3">
+                  Debate Duration
+                </label>
+
+                <select
+                  className="
+        w-full
+        bg-slate-950
+        border border-slate-800
+        rounded-xl
+        px-4
+        py-4
+        text-white
+        focus:outline-none
+        focus:border-blue-500
+        transition
+      "
+                  value={debateDuration}
+                  onChange={(e) => setDebateDuration(Number(e.target.value))}
+                >
+                  <option value="5">5 Minutes</option>
+                  <option value="10">10 Minutes</option>
+                  <option value="15">15 Minutes</option>
+                </select>
+
+              </div>
+
+              <div className="flex gap-4">
+
+                <button
+                  onClick={createDebate}
+                  className="
+        flex-1
+        bg-white
+        text-black
+        py-4
+        rounded-xl
+        font-semibold
+        hover:bg-slate-200
+        hover:scale-[1.01]
+        active:scale-[0.99]
+        transition-all
+        duration-300
+      "
+                >
+                  Start Debate
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </>
     );

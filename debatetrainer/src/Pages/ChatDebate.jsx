@@ -75,8 +75,15 @@ Example format:
 }
 `;
       const reportText = await getAIResponse(prompt);
-      console.log(reportText);
-      const report = JSON.parse(reportText);
+
+      const cleaned = reportText
+        .replace(/```json/g,"")
+        .replace(/```/g,"")
+        .trim();
+      console.log(cleaned);
+
+      const report = JSON.parse(cleaned);
+      
       try {
         const { data, error } = await supabase.from('debate_reports').insert({
           debate_id: debateId,
