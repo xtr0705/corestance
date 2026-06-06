@@ -6,6 +6,7 @@ import CreateDebate from "./Pages/CreateDebate";
 import ChatDebate from "./Pages/ChatDebate";
 import DebateReport from "./Pages/DebateReport";
 import Home from "./Pages/Home";
+import ProtectedRoute from "./Component/ProtectedRoute";
 
 function App() {
   return (
@@ -15,9 +16,14 @@ function App() {
           path="/"
           element={<Home />}
         />
+
         <Route
           path="/create-debate/"
-          element={<CreateDebate />}
+          element={
+            <ProtectedRoute>
+              <CreateDebate />
+            </ProtectedRoute>
+          }
         />
 
         <Route
@@ -32,11 +38,21 @@ function App() {
 
         <Route
           path="/debate/:debateId"
-          element={<ChatDebate />}
+          element={
+            <ProtectedRoute>
+
+              <ChatDebate />
+            </ProtectedRoute>
+          }
         />
         <Route
           path="/DebateReport/:debateId"
-          element={<DebateReport />}
+          element={
+            <ProtectedRoute>
+
+              <DebateReport />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </BrowserRouter>

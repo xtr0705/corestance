@@ -11,31 +11,38 @@ function CreateDebate() {
   const navigate = useNavigate();
 
   const createDebate = async () => {
-    const object = await supabase.auth.getUser();
-    const data = object.data.user;
-    console.log(data);
-
     if (!debateTopic.trim()) {
       alert("Please enter a debate topic");
       return;
     }
+    const {data:{user}, error:userError}= await supabase.auth.getUser();
+    
+    if (userError|| !user) {
+      alert('You must be logged in to create a debate');
+      navigate('/login');
+      console.error('Auth error : ', userError);
+      return;
+    }
 
-    const response = await supabase
+    const {data,error} = await supabase
       .from("debates")
       .insert({
         topic: debateTopic,
         mode: debateMode,
         duration: debateDuration,
-        user_id: data.id
+        user_id: user.id
       })
       .select("*")
+      .single();
 
-    console.log(response);
-    setLoading(true);
-    if (response.error) {
+    console.log(data);
+    if (error) {
       alert("Error create debate");
+      console.log("db error: ", error)
+      return;
     } else {
-      const debateId = response.data[0].id;
+      const debateId = data.id;
+      setLoading(true);
       navigate(`/debate/${debateId}`);
     }
   }

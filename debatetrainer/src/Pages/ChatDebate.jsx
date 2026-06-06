@@ -53,7 +53,7 @@ Scoring Rules:
 - overall_score: Score from 0 to 100 combining persuasion and logic.
 - strongest_argument: The user's strongest argument from the debate.
 - weakest_argument: The user's weakest argument from the debate.
-- improvement_tip: One practical suggestion for improvement.
+- improvement_tip: practical suggestions for improvement. Should be under 100 words.
 - winner: Must be either "user", "ai", or "draw".
 
 Do not inflate scores.
@@ -83,7 +83,7 @@ Example format:
       console.log(cleaned);
 
       const report = JSON.parse(cleaned);
-      
+
       try {
         const { data, error } = await supabase.from('debate_reports').insert({
           debate_id: debateId,
