@@ -85,7 +85,7 @@ Example format:
       const report = JSON.parse(cleaned);
 
       try {
-        const { data, error } = await supabase.from('debate_reports').insert({
+        const { error } = await supabase.from('debate_reports').insert({
           debate_id: debateId,
           persuasion_score: report.persuasion_score,
           logic_score: report.logic_score,
@@ -173,33 +173,33 @@ Example format:
     }
   }
 
-  const fetchMessages = async () => {
-    const { data, error } = await supabase
-      .from('debate_messages')
-      .select('*')
-      .eq('debate_id', debateId)
-      .order('created_at', { ascending: true });
-    if (error) {
-      console.log(error);
-    } else {
-      setMessages(data);
-    }
-  }
-
-
-  const fetchDebateInfo = async () => {
-    const { data, error } = await supabase.from('debates').select('*').eq('id', debateId).single();
-    if (error) {
-      console.log(error);
-    } else {
-      setDebateInfo(data);
-    }
-  }
-
+  
+  
+  
   useEffect(() => {
+    const fetchMessages = async () => {
+      const { data, error } = await supabase
+        .from('debate_messages')
+        .select('*')
+        .eq('debate_id', debateId)
+        .order('created_at', { ascending: true });
+      if (error) {
+        console.log(error);
+      } else {
+        setMessages(data);
+      }
+    }
+    const fetchDebateInfo = async () => {
+      const { data, error } = await supabase.from('debates').select('*').eq('id', debateId).single();
+      if (error) {
+        console.log(error);
+      } else {
+        setDebateInfo(data);
+      }
+    }
     fetchDebateInfo();
     fetchMessages();
-  }, []);
+  }, [debateId]);
 
 
   return (
