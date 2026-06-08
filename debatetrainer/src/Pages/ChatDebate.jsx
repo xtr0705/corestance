@@ -20,7 +20,6 @@ function ChatDebate() {
     });
   }, [messages])
 
-
   const debateOver = async () => {
     const { error } = await supabase.from('debates').update({
       ended_at: new Date().toISOString(),
@@ -284,7 +283,7 @@ Example format:
         className={`
     absolute
     inset-0
-    bg-gradient-to-br
+    bg-linear-to-br
     ${theme.glow}
     via-transparent
     to-transparent
@@ -318,7 +317,6 @@ Example format:
           text-red-400
           px-5
           py-2
-          rounded-xl
           hover:bg-red-500/20
           transition
         "
@@ -363,7 +361,6 @@ Example format:
               max-w-2xl
               px-5
               py-4
-              rounded-2xl
               ${message.sender === "user"
                     ? "bg-white text-black"
                     : "bg-slate-900 border border-slate-800"
@@ -375,7 +372,7 @@ Example format:
 
                   <div
                     className={`
-      w-2 h-2 rounded-full
+      w-2 h-2
       ${message.sender === "user"
                         ? "bg-black"
                         : "bg-blue-400"
@@ -409,19 +406,19 @@ Example format:
           {aiIsThinking && (
             <div className="flex justify-start">
 
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl px-5 py-4">
+              <div className="bg-slate-900 border border-slate-800 px-5 py-4">
 
                 <div className="flex gap-2">
 
-                  <div className="w-2 h-2 rounded-full bg-slate-500 animate-bounce"></div>
+                  <div className="w-2 h-2 bg-slate-500 animate-bounce"></div>
 
                   <div
-                    className="w-2 h-2 rounded-full bg-slate-500 animate-bounce"
+                    className="w-2 h-2 bg-slate-500 animate-bounce"
                     style={{ animationDelay: "150ms" }}
                   ></div>
 
                   <div
-                    className="w-2 h-2 rounded-full bg-slate-500 animate-bounce"
+                    className="w-2 h-2 bg-slate-500 animate-bounce"
                     style={{ animationDelay: "300ms" }}
                   ></div>
 
@@ -457,7 +454,6 @@ Example format:
           bg-slate-900
           border
           border-slate-800
-          rounded-xl
           px-5
           py-4
           text-white
@@ -474,7 +470,6 @@ Example format:
           bg-white
           text-black
           px-8
-          rounded-xl
           font-semibold
           hover:bg-slate-200
           transition

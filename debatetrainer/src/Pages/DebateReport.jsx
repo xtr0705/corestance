@@ -52,7 +52,7 @@ function DebateReport() {
           </p>
         </div>
 
-        <div className="bg-slate-900 rounded-xl p-6 border border-slate-800 mb-8">
+        <div className="bg-slate-900 p-6 border border-slate-800 mb-8">
           <h2 className="text-2xl font-semibold mb-3">
             🏆 Winner
           </h2>
@@ -64,7 +64,7 @@ function DebateReport() {
 
         <div className="grid md:grid-cols-3 gap-6 mb-8">
 
-          <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+          <div className="bg-slate-900 p-6 border border-slate-800">
             <h3 className="text-slate-400 mb-2">
               Persuasion Score
             </h3>
@@ -74,7 +74,7 @@ function DebateReport() {
             </p>
           </div>
 
-          <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+          <div className="bg-slate-900 p-6 border border-slate-800">
             <h3 className="text-slate-400 mb-2">
               Logic Score
             </h3>
@@ -84,7 +84,7 @@ function DebateReport() {
             </p>
           </div>
 
-          <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+          <div className="bg-slate-900 p-6 border border-slate-800">
             <h3 className="text-slate-400 mb-2">
               Overall Score
             </h3>
@@ -98,7 +98,7 @@ function DebateReport() {
 
         <div className="space-y-6">
 
-          <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+          <div className="bg-slate-900 p-6 border border-slate-800">
             <h2 className="text-xl font-semibold mb-3 text-green-400">
               Strongest Argument
             </h2>
@@ -108,7 +108,7 @@ function DebateReport() {
             </p>
           </div>
 
-          <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+          <div className="bg-slate-900 p-6 border border-slate-800">
             <h2 className="text-xl font-semibold mb-3 text-red-400">
               Weakest Argument
             </h2>
@@ -118,7 +118,7 @@ function DebateReport() {
             </p>
           </div>
 
-          <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+          <div className="bg-slate-900 p-6 border border-slate-800">
             <h2 className="text-xl font-semibold mb-3 text-blue-400">
               Improvement Tip
             </h2>
@@ -131,11 +131,11 @@ function DebateReport() {
 
           <div className="flex justify-center gap-7.5" >
 
-            <button className="border border-slate-700 px-8 py-4 rounded-xl hover:bg-slate-900 transition" onClick={()=>{
+            <button className="border border-slate-700 px-8 py-4 hover:bg-slate-900 transition" onClick={()=>{
               navigate('/');
             }
             }>Home</button>
-            <button className="border border-slate-700 px-8 py-4 ml-4 rounded-xl hover:bg-slate-900 transition"
+            <button className="border border-slate-700 px-8 py-4 ml-4 hover:bg-slate-900 transition"
             onClick={()=>{
               navigate('/History/:user_id');
             }}

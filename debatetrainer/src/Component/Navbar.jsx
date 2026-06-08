@@ -32,12 +32,11 @@ function Navbar() {
             href="/History/:user_id"
             className="text-slate-400 hover:text-white transition"
           >
-            Reports
+            Debate Results
           </a>
 
         </div>
 
-        {/* CTA */}
         <Link
           to="/create-debate"
           className="
@@ -45,7 +44,6 @@ function Navbar() {
             text-black
             px-5
             py-2.5
-            rounded-xl
             font-medium
             transition-all
             duration-300

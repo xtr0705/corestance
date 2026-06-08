@@ -41,6 +41,7 @@ function Home() {
               >
                 Learn More
               </a>
+              
             </div>
 
           </div>
@@ -79,8 +80,8 @@ function Home() {
 
         <div className="max-w-6xl mx-auto border-t border-slate-800"></div>
 
-        
-        <section className="max-w-6xl mx-auto px-6 py-24">
+
+        <section id="opponents" className="max-w-6xl mx-auto px-6 py-24">
 
           <h2 className="text-4xl font-bold mb-14">
             Choose Your Opponent
@@ -193,7 +194,7 @@ hover:bg-slate-900/80">
 
         <div className="max-w-6xl mx-auto border-t border-slate-800"></div>
 
-        {/* Process */}
+        
         <section
           id="how-it-works"
           className="max-w-6xl mx-auto px-6 py-24"
@@ -229,7 +230,6 @@ hover:bg-slate-900/80">
 
         <div className="max-w-6xl mx-auto border-t border-slate-800"></div>
 
-        {/* Reports */}
         <section className="max-w-6xl mx-auto px-6 py-24">
 
           <h2 className="text-4xl font-bold mb-12">
@@ -334,8 +334,8 @@ hover:bg-slate-900/80">
 
           <p className="text-slate-400 text-xl mb-10">
             The AI won't agree with you.
-It won't make things easy.
-And it won't let weak reasoning survive.
+            It won't make things easy.
+            And it won't let weak reasoning survive.
 
           </p>
 
