@@ -5,7 +5,6 @@ function Navbar() {
     <nav className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/70 border-b border-slate-800">
       <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
 
-        {/* Logo */}
         <Link
           to="/"
           className="text-xl font-bold tracking-tight"
@@ -13,7 +12,6 @@ function Navbar() {
           AI Debate Arena
         </Link>
 
-        {/* Navigation */}
         <div className="hidden md:flex items-center gap-8">
 
           <a
@@ -31,7 +29,7 @@ function Navbar() {
           </a>
 
           <a
-            href="#reports"
+            href="/History/:user_id"
             className="text-slate-400 hover:text-white transition"
           >
             Reports

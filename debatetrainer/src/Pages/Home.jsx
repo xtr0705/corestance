@@ -7,8 +7,6 @@ function Home() {
       <div className="relative min-h-screen bg-slate-950 text-white overflow-hidden">
 
         <Navbar />
-
-        {/* Hero */}
         <section className="max-w-6xl mx-auto px-6 pt-32 pb-24">
 
           <div className="max-w-6xl">
@@ -81,7 +79,7 @@ function Home() {
 
         <div className="max-w-6xl mx-auto border-t border-slate-800"></div>
 
-        {/* Opponents */}
+        
         <section className="max-w-6xl mx-auto px-6 py-24">
 
           <h2 className="text-4xl font-bold mb-14">
