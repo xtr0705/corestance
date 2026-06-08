@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import supabase from "../lib/supabase";
 import { useEffect, useState } from "react";
 
 function DebateReport() {
+  const navigate = useNavigate();
   const { debateId } = useParams();
-  const [report, setReport] = useState(null);
+  const [report, setReport] = useState(null); 
 
   useEffect(() => {
     const FetchReport = async () => {
@@ -13,7 +14,6 @@ function DebateReport() {
           .from('debate_reports')
           .select('*')
           .eq('debate_id', debateId)
-          .single();
         if (error) {
           console.log(error)
         } else {
@@ -45,7 +45,7 @@ function DebateReport() {
             Debate Result
           </h1>
 
-          <h2>{report.topic}</h2>
+          <h2 className="text-4xl font-bold">{report[0].topic}</h2>
 
           <p className="text-slate-400 mt-2">
             AI Evaluation Summary
@@ -58,7 +58,7 @@ function DebateReport() {
           </h2>
 
           <p className="text-3xl font-bold text-green-400 capitalize">
-            {report.winner}
+            {report[0].winner}
           </p>
         </div>
 
@@ -70,7 +70,7 @@ function DebateReport() {
             </h3>
 
             <p className="text-4xl font-bold">
-              {report.persuasion_score}
+              {report[0].persuasion_score}
             </p>
           </div>
 
@@ -80,7 +80,7 @@ function DebateReport() {
             </h3>
 
             <p className="text-4xl font-bold">
-              {report.logic_score}
+              {report[0].logic_score}
             </p>
           </div>
 
@@ -90,7 +90,7 @@ function DebateReport() {
             </h3>
 
             <p className="text-4xl font-bold">
-              {report.overall_score}
+              {report[0].overall_score}
             </p>
           </div>
 
@@ -104,7 +104,7 @@ function DebateReport() {
             </h2>
 
             <p className="text-slate-300 leading-relaxed">
-              {report.strongest_argument}
+              {report[0].strongest_argument}
             </p>
           </div>
 
@@ -114,7 +114,7 @@ function DebateReport() {
             </h2>
 
             <p className="text-slate-300 leading-relaxed">
-              {report.weakest_argument}
+              {report[0].weakest_argument}
             </p>
           </div>
 
@@ -124,8 +124,22 @@ function DebateReport() {
             </h2>
 
             <p className="text-slate-300 leading-relaxed">
-              {report.improvement_tip}
+              {report[0].improvement_tip}
             </p>
+
+          </div>
+
+          <div className="flex justify-center gap-7.5" >
+
+            <button className="border border-slate-700 px-8 py-4 rounded-xl hover:bg-slate-900 transition" onClick={()=>{
+              navigate('/');
+            }
+            }>Home</button>
+            <button className="border border-slate-700 px-8 py-4 ml-4 rounded-xl hover:bg-slate-900 transition"
+            onClick={()=>{
+              navigate('/History/:user_id');
+            }}
+            >History</button>
           </div>
 
         </div>

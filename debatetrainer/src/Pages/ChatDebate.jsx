@@ -95,6 +95,7 @@ Example format:
       const report = JSON.parse(cleaned);
 
       try {
+        const {data:userData} = await supabase.auth.getUser();
         const { error } = await supabase.from('debate_reports').insert({
           debate_id: debateId,
           persuasion_score: report.persuasion_score,
@@ -103,7 +104,9 @@ Example format:
           weakest_argument: report.weakest_argument,
           improvement_tip: report.improvement_tip,
           overall_score: report.overall_score,
-          winner: report.winner
+          winner: report.winner,
+          topic:debateinfo.topic,
+          user_id:userData.user.id
         })
           .select('*')
           .single()

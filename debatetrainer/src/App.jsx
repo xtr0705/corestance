@@ -7,6 +7,7 @@ import ChatDebate from "./Pages/ChatDebate";
 import DebateReport from "./Pages/DebateReport";
 import Home from "./Pages/Home";
 import ProtectedRoute from "./Component/ProtectedRoute";
+import DebateHistory from "./Pages/History";
 
 function App() {
   return (
@@ -45,6 +46,17 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/History/:user_id"
+          element={
+            <ProtectedRoute>
+
+              <DebateHistory />
+            </ProtectedRoute>
+          }
+        />
+
+
         <Route
           path="/DebateReport/:debateId"
           element={
