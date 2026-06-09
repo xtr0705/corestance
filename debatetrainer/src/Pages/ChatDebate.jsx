@@ -112,7 +112,6 @@ Example format:
         .replace(/```json/g, "")
         .replace(/```/g, "")
         .trim();
-      console.log(cleaned);
 
       const report = JSON.parse(cleaned);
 
@@ -372,7 +371,7 @@ backdrop-blur-xl backdrop-blur sticky top-0 z-10">
 
           <div>
 
-            <h1 className="text-2xl font-serif">
+            <h1 className="text-xl md:text-2xl font-serif">
   {debateinfo?.topic}
 </h1>
 
@@ -438,7 +437,7 @@ backdrop-blur-xl backdrop-blur sticky top-0 z-10">
 
               <div
                 className={`
-              max-w-2xl
+              max-w-[90%] md:max-w-2xl
               px-5
               py-4
               ${message.sender === "user"
@@ -530,7 +529,7 @@ to-black border ${theme.border}`
       <div className="border-t border-slate-800 bg-[#09090B]
 border-zinc-800">
 
-        <div className="max-w-5xl mx-auto p-6 flex gap-4">
+        <div className="max-w-5xl mx-auto p-6 flex flex-col sm:flex-row gap-4">
 
           <input
             value={newMessage}
@@ -563,7 +562,7 @@ ${theme.border}
             className="
           bg-violet-500
           text-white
-          px-8
+          w-full sm:w-auto
           font-semibold
           hover:bg-violet-400
           hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]

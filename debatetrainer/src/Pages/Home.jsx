@@ -16,7 +16,7 @@ function Home() {
               AI Debate Arena
             </p>
 
-            <h1 className="text-6xl md:text-7xl leading-tight font-heading font-serif">
+            <h1 className="text-4xl sm:text-5xl md:text-7xl leading-tight font-heading font-serif">
               Every Belief Sounds Right
               <br />
               Until It's Challenged.
@@ -28,7 +28,7 @@ function Home() {
               in your arguments before someone else does.
             </p>
 
-            <div className="flex gap-4 mt-10">
+            <div className="flex  sm:flex-row gap-4 mt-10">
               <Link
   to="/create-debate"
   className="
@@ -154,7 +154,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-blue-500/40
@@ -183,7 +183,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-red-500/40
@@ -212,7 +212,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-emerald-500/40
@@ -240,7 +240,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-violet-500/40
@@ -268,7 +268,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-amber-500/40
@@ -295,7 +295,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-cyan-500/40
@@ -331,7 +331,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-orange-500/40
@@ -404,7 +404,7 @@ hover:shadow-[0_0_30px_rgba(249,115,22,0.12)]
         Real-Time Debate Experience
       </p>
 
-      <h2 className="text-5xl  font-serif font-heading mb-8">
+      <h2 className="text-3xl md:text-5xl  font-serif font-heading mb-8">
         Not Another AI Chatbot.
       </h2>
 
@@ -478,7 +478,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-violet-500/40
@@ -505,7 +505,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-violet-500/40
@@ -530,7 +530,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-violet-500/40
@@ -555,7 +555,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-violet-500/40
@@ -580,7 +580,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-violet-500/40
@@ -606,7 +606,7 @@ to-black
 border
 border-zinc-800
 rounded-2xl
-p-8
+p-6 md:p-8
 transition-all
 duration-300
 hover:border-violet-500/40

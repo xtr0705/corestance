@@ -36,7 +36,6 @@ function CreateDebate() {
       .select("*")
       .single();
 
-    console.log(data);
     if (error) {
       alert("Error create debate");
       console.log("db error: ", error)
@@ -143,7 +142,7 @@ const durations = [
                 AI Debate Arena
               </p>
 
-<h1 className="text-5xl font-serif tracking-tight mb-4">                Create A New Debate
+<h1 className="text-4xl md:text-5xl font-serif tracking-tight mb-4">                Create A New Debate
               </h1>
 
               <p className="text-slate-400 text-lg">
@@ -177,7 +176,7 @@ const durations = [
     border
     border-zinc-800
 
-    p-8
+    p-6 md:p-8
 
     shadow-[0_0_40px_rgba(139,92,246,0.05)]
   "

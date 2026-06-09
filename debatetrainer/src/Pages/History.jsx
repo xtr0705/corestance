@@ -160,7 +160,10 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
               "
               >
 
-                <div className="flex justify-between items-start">
+                <div className="flex flex-col sm:flex-row
+gap-4
+sm:justify-between
+sm:items-start">
 
                   <div>
 
@@ -201,7 +204,10 @@ hover:shadow-[0_0_30px_rgba(139,92,246,0.08)]
                   e.stopPropagation();
                   navigate(`/DebateReport/${report.debate_id}`)
                 }
-} className="mt-6 flex items-center justify-between">
+} className="mt-6 flex flex-col sm:flex-row
+gap-4
+sm:items-center
+sm:justify-between">
 
                   <div>
 
@@ -236,7 +242,7 @@ font-medium
 
 transition-all
 duration-300
-
+w-full sm:w-auto
 hover:bg-violet-400
 hover:-translate-y-0.5
 hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]

@@ -17,7 +17,6 @@ function DebateReport() {
         if (error) {
           console.log(error)
         } else {
-          console.log(data);
           setReport(data);
         }
       } catch (error) {
@@ -87,7 +86,7 @@ overflow-hidden
             AI Evaluation Report
           </p>
 
-          <h1 className="text-5xl font-serif mb-4">
+          <h1 className="text-4xl md:text-5xl font-serif mb-4">
             Debate Result
           </h1>
 

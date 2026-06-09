@@ -1,155 +1,290 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import  supabase  from "../lib/supabase";
+import supabase from "../lib/supabase";
 import { useNavigate, Link } from "react-router-dom";
 
 function Signup() {
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+const [error, setError] = useState("");
+const [loading, setLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+const {
+register,
+handleSubmit,
+formState: { errors },
+} = useForm();
 
-  const signup = async ({
-    email,
-    password,
-    username,
-  }) => {
-    setLoading(true);
-    setError("");
+const signup = async ({ email, password }) => {
+setLoading(true);
+setError("");
 
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.signUp({
-      email,
-      password,
-    });
 
-    if (error) {
-      setError(error.message);
-      setLoading(false);
-      return;
-    }
+const { error } = await supabase.auth.signUp({
+  email,
+  password,
+});
 
-    if (!user) {
-      setError("Failed to create user");
-      setLoading(false);
-      return;
-    }
+if (error) {
+  setError(error.message);
+  setLoading(false);
+  return;
+}
 
-    const { error: profileError } =
-      await supabase
-        .from("profiles")
-        .insert({
-          id: user.id,
-          username,
-        });
+setLoading(false);
+navigate("/");
 
-    if (profileError) {
-      setError(profileError.message);
-      setLoading(false);
-      return;
-    }
 
-    setLoading(false);
-    navigate("/");
-  };
+};
 
-  return (
-    <div className="max-w-md mx-auto mt-20">
-      <h1 className="text-3xl font-bold mb-6">
-        Sign up
-      </h1>
+return ( <div
+   className="
+     min-h-screen
+     bg-[#09090B]
+     text-white
+     relative
+     overflow-hidden
+   "
+ > <div
+     className="
+       absolute
+       inset-0
+       bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_50%)]
+       pointer-events-none
+     "
+   />
 
-      {error && (
-        <p className="text-red-500 mb-4">
-          {error}
+
+  <div className="relative flex items-center justify-center min-h-screen px-6">
+
+    <div className="w-full max-w-md">
+
+      <div className="text-center mb-10">
+
+        <p className="text-zinc-500 uppercase tracking-widest mb-4">
+          AI Debate Arena
         </p>
-      )}
 
-      <form
-        onSubmit={handleSubmit(signup)}
-        className="space-y-4"
+        <h1 className="text-5xl font-serif mb-4">
+          Create Account
+        </h1>
+
+        <p className="text-zinc-400">
+          Join the arena and start testing your ideas.
+        </p>
+
+        <div className="flex justify-center gap-3 mt-6">
+
+          <div className="w-2 h-2 rounded-full bg-violet-400" />
+          <div className="w-2 h-2 rounded-full bg-cyan-400" />
+          <div className="w-2 h-2 rounded-full bg-amber-400" />
+
+        </div>
+
+      </div>
+
+      <div
+        className="
+          bg-gradient-to-br
+          from-zinc-900
+          to-black
+
+          border
+          border-zinc-800
+
+          p-8
+
+          shadow-[0_0_40px_rgba(255,255,255,0.03)]
+        "
       >
-        <div>
-          <input
-            type="text"
-            placeholder="Username"
-            className="border p-2 w-full"
-            {...register("username", {
-              required: "Username is required",
-            })}
-          />
 
-          {errors.username && (
-            <p className="text-red-500">
-              {errors.username.message}
-            </p>
-          )}
-        </div>
+        {error && (
+          <div
+            className="
+              bg-red-500/10
+              border
+              border-red-500/20
+              text-red-400
+              p-4
+              mb-6
+            "
+          >
+            {error}
+          </div>
+        )}
 
-        <div>
-          <input
-            type="email"
-            placeholder="Email"
-            className="border p-2 w-full"
-            {...register("email", {
-              required: "Email is required",
-            })}
-          />
-
-          {errors.email && (
-            <p className="text-red-500">
-              {errors.email.message}
-            </p>
-          )}
-        </div>
-
-        <div>
-          <input
-            type="password"
-            placeholder="Password"
-            className="border p-2 w-full"
-            {...register("password", {
-              required: "Password is required",
-            })}
-          />
-
-          {errors.password && (
-            <p className="text-red-500">
-              {errors.password.message}
-            </p>
-          )}
-        </div>
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+        <form
+          onSubmit={handleSubmit(signup)}
+          className="space-y-5"
         >
-          {loading
-            ? "Creating Account..."
-            : "Sign up"}
-        </button>
-      </form>
 
-      <p className="mt-4">
-        Already have an account?{" "}
-        <Link
-          to="/login"
-          className="text-blue-500"
-        >
-          Login
-        </Link>
-      </p>
+          <div>
+
+            <input
+              type="email"
+              placeholder="Email"
+              className="
+                w-full
+
+                bg-black/50
+
+                border
+                border-zinc-800
+
+                px-4
+                py-4
+
+                text-white
+
+                placeholder:text-zinc-500
+
+                focus:outline-none
+                focus:border-violet-500
+
+                transition-all
+              "
+              {...register("email", {
+                required: "Email is required",
+              })}
+            />
+
+            {errors.email && (
+              <p className="text-red-400 text-sm mt-2">
+                {errors.email.message}
+              </p>
+            )}
+
+          </div>
+
+          <div>
+
+            <input
+              type="password"
+              placeholder="Password"
+              className="
+                w-full
+
+                bg-black/50
+
+                border
+                border-zinc-800
+
+                px-4
+                py-4
+
+                text-white
+
+                placeholder:text-zinc-500
+
+                focus:outline-none
+                focus:border-violet-500
+
+                transition-all
+              "
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message:
+                    "Password must be at least 6 characters",
+                },
+              })}
+            />
+
+            {errors.password && (
+              <p className="text-red-400 text-sm mt-2">
+                {errors.password.message}
+              </p>
+            )}
+
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="
+              group
+              relative
+              overflow-hidden
+
+              w-full
+
+              bg-violet-500
+              text-white
+
+              py-4
+
+              font-semibold
+
+              transition-all
+              duration-300
+
+              hover:bg-violet-400
+              hover:-translate-y-0.5
+              hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
+
+              disabled:opacity-50
+            "
+          >
+
+            <span
+              className="
+                absolute
+                top-0
+                left-[-150%]
+                h-full
+                w-[50%]
+
+                bg-gradient-to-r
+                from-transparent
+                via-white/20
+                to-transparent
+
+                skew-x-12
+
+                group-hover:left-[150%]
+
+                transition-all
+                duration-700
+              "
+            />
+
+            <span className="relative">
+              {loading
+                ? "Creating Account..."
+                : "Create Account"}
+            </span>
+
+          </button>
+
+        </form>
+
+        <p className="text-center text-zinc-400 mt-8">
+
+          Already have an account?{" "}
+
+          <Link
+            to="/login"
+            className="
+              text-violet-400
+              hover:text-violet-300
+              transition
+            "
+          >
+            Login
+          </Link>
+
+        </p>
+
+      </div>
+
     </div>
-  );
+
+  </div>
+
+</div>
+
+);
 }
 
 export default Signup;

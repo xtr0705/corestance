@@ -1,122 +1,224 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[#09090B]/70 border-b border-zinc-800">
 
-  <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
 
-    <Link
-      to="/"
-      className="
-        text-xl
-        font-bold
-        tracking-tight
-        font-serif
-      "
-    >
-      AI Debate Arena
-    </Link>
+        <Link
+          to="/"
+          className="text-xl font-bold tracking-tight"
+        >
+          AI Debate Arena
+        </Link>
 
-    <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-8">
 
-      <a
-        href="#how-it-works"
-        className="
-          text-zinc-400
-          transition-all
-          duration-300
-          hover:text-violet-300
-          hover:-translate-y-0.5
-        "
-      >
-        How It Works
-      </a>
+          <a
+            href="#how-it-works"
+            className="
+              text-zinc-400
+              transition-all
+              duration-300
+              hover:text-violet-300
+              hover:-translate-y-0.5
+            "
+          >
+            How It Works
+          </a>
 
-      <a
-        href="#opponents"
-        className="
-          text-zinc-400
-          transition-all
-          duration-300
-          hover:text-violet-300
-          hover:-translate-y-0.5
-        "
-      >
-        Opponents
-      </a>
+          <a
+            href="#opponents"
+            className="
+              text-zinc-400
+              transition-all
+              duration-300
+              hover:text-violet-300
+              hover:-translate-y-0.5
+            "
+          >
+            Opponents
+          </a>
 
-      <a
-        href="/History/:user_id"
-        className="
-          text-zinc-400
-          transition-all
-          duration-300
-          hover:text-violet-300
-          hover:-translate-y-0.5
-        "
-      >
-        Debate Results
-      </a>
+          <Link
+            to="/history"
+            className="
+              text-zinc-400
+              transition-all
+              duration-300
+              hover:text-violet-300
+              hover:-translate-y-0.5
+            "
+          >
+            Debate Results
+          </Link>
 
-    </div>
+        </div>
 
-    <Link
-      to="/create-debate"
-      className="
-        group
-        relative
-        overflow-hidden
+        <div className="flex items-center gap-3">
 
-        bg-violet-500
-        text-white
+          <Link
+            to="/create-debate"
+            className="
+              hidden md:inline-flex
 
-        px-5
-        py-2.5
+              group
+              relative
+              overflow-hidden
 
-        
-        font-medium
+              bg-violet-500
+              text-white
 
-        transition-all
-        duration-300
+              px-5
+              py-2.5
 
-        hover:bg-violet-400
-        hover:-translate-y-0.5
-        hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
-      "
-    >
+              font-medium
 
-      <span
-        className="
-          absolute
-          top-0
-          left-[-150%]
-          h-full
-          w-[50%]
+              transition-all
+              duration-300
 
-          bg-linear-to-r
-          from-transparent
-          via-white/20
-          to-transparent
+              hover:bg-violet-400
+              hover:-translate-y-0.5
+              hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+            "
+          >
+            <span
+              className="
+                absolute
+                top-0
+                left-[-150%]
+                h-full
+                w-[50%]
 
-          skew-x-12
+                bg-gradient-to-r
+                from-transparent
+                via-white/20
+                to-transparent
 
-          group-hover:left-[150%]
+                skew-x-12
 
-          transition-all
-          duration-700
-        "
-      />
+                group-hover:left-[150%]
 
-      <span className="relative">
-        Start Debate
-      </span>
+                transition-all
+                duration-700
+              "
+            />
 
-    </Link>
+            <span className="relative">
+              Start Debate
+            </span>
 
-  </div>
+          </Link>
 
-</nav>
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="
+              md:hidden
+              text-white
+              text-2xl
+            "
+          >
+            {mobileOpen ? "✕" : "☰"}
+          </button>
+
+        </div>
+
+      </div>
+
+      <AnimatePresence>
+
+        {mobileOpen && (
+
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            className="
+              md:hidden
+              overflow-hidden
+
+              border-t
+              border-zinc-800
+
+              bg-[#09090B]/95
+              backdrop-blur-xl
+            "
+          >
+
+            <div className="px-6 py-6 flex flex-col gap-5">
+
+              <a
+                href="#how-it-works"
+                onClick={() => setMobileOpen(false)}
+                className="
+                  text-zinc-300
+                  hover:text-violet-300
+                  transition
+                "
+              >
+                How It Works
+              </a>
+
+              <a
+                href="#opponents"
+                onClick={() => setMobileOpen(false)}
+                className="
+                  text-zinc-300
+                  hover:text-violet-300
+                  transition
+                "
+              >
+                Opponents
+              </a>
+
+              <Link
+                to="/history"
+                onClick={() => setMobileOpen(false)}
+                className="
+                  text-zinc-300
+                  hover:text-violet-300
+                  transition
+                "
+              >
+                Debate Results
+              </Link>
+
+              <Link
+                to="/create-debate"
+                onClick={() => setMobileOpen(false)}
+                className="
+                  bg-violet-500
+                  text-center
+                  text-white
+
+                  py-3
+
+                  font-medium
+
+                  transition-all
+                  duration-300
+
+                  hover:bg-violet-400
+                "
+              >
+                Start Debate
+              </Link>
+
+            </div>
+
+          </motion.div>
+
+        )}
+
+      </AnimatePresence>
+
+    </nav>
   );
 }
 
