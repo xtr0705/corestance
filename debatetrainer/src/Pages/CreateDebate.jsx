@@ -96,15 +96,43 @@ const durations = [
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-lg font-semibold">Creating Debate...</p>
-      </div>
+      <div className="min-h-screen bg-[#09090B] flex items-center justify-center">
+
+  <div className="text-center">
+
+    <div className="flex justify-center gap-2 mb-4">
+
+      <div className="w-2 h-2 rounded-full bg-violet-400 animate-bounce" />
+
+      <div
+        className="w-2 h-2 rounded-full bg-violet-400 animate-bounce"
+        style={{ animationDelay: "150ms" }}
+      />
+
+      <div
+        className="w-2 h-2 rounded-full bg-violet-400 animate-bounce"
+        style={{ animationDelay: "300ms" }}
+      />
+
+    </div>
+
+    <p className="text-zinc-400">
+      Creating Debate...
+    </p>
+
+  </div>
+
+</div>
     );
   } else {
 
     return (
       <>
-        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-6">
+        <div className="min-h-screen bg-[#09090B] text-white relative overflow-hidden">
+
+  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.12),transparent_50%)]" />
+
+  <div className="relative flex items-center justify-center min-h-screen px-6">
 
           <div className="w-full max-w-2xl">
 
@@ -115,8 +143,7 @@ const durations = [
                 AI Debate Arena
               </p>
 
-              <h1 className="text-5xl font-bold mb-4">
-                Create A New Debate
+<h1 className="text-5xl font-serif tracking-tight mb-4">                Create A New Debate
               </h1>
 
               <p className="text-slate-400 text-lg">
@@ -124,10 +151,37 @@ const durations = [
                 and put your arguments to the test.
               </p>
 
+              <div className="flex justify-center gap-3 mt-6">
+
+  <div className="w-2 h-2 rounded-full bg-blue-400" />
+  <div className="w-2 h-2 rounded-full bg-emerald-400" />
+  <div className="w-2 h-2 rounded-full bg-red-400" />
+  <div className="w-2 h-2 rounded-full bg-violet-400" />
+  <div className="w-2 h-2 rounded-full bg-amber-400" />
+  <div className="w-2 h-2 rounded-full bg-cyan-400" />
+  <div className="w-2 h-2 rounded-full bg-orange-400" />
+
+</div>
+
             </div>
 
-            <div className="bg-slate-900 border border-slate-800 p-8 shadow-2xl">
+<div
+  className="
+    relative
+    overflow-hidden
 
+    bg-gradient-to-br
+    from-zinc-900
+    to-black
+
+    border
+    border-zinc-800
+
+    p-8
+
+    shadow-[0_0_40px_rgba(139,92,246,0.05)]
+  "
+>
               <div className="mb-6">
 
                 <label className="block text-sm font-medium text-slate-300 mb-3">
@@ -138,14 +192,14 @@ const durations = [
                   placeholder="e.g. College is overrated"
                   className="
         w-full
-        bg-slate-950
-        border border-slate-800
+        bg-black/50
+        border border-zinc-800
         px-4
         py-4
         text-white
         placeholder:text-slate-500
         focus:outline-none
-        focus:border-blue-500
+        focus:border-violet-500
         transition
       "
                   value={debateTopic}
@@ -166,12 +220,12 @@ const durations = [
     <Listbox.Button
       className="
         w-full
-        bg-slate-950
+        bg-black/50
         focus:outline-none
-        focus:border-blue-500
+        focus:border-violet-500
         
         border
-        border-slate-800
+        border-zinc-800
         px-4
         py-4
         text-left
@@ -193,11 +247,19 @@ const durations = [
     z-50
     mt-2
     w-full
+
     max-h-48
     overflow-y-auto
+
+    rounded-xl
+
     border
-    border-slate-800
-    bg-slate-900
+    border-zinc-800
+
+    bg-gradient-to-b
+    from-zinc-900
+    to-black
+
     shadow-2xl
   "
 >
@@ -208,28 +270,30 @@ const durations = [
         >
           {({ active, selected }) => (
             <div
-              className={`
-                px-4
-                py-4
-                cursor-pointer
-                transition-all
-                duration-200
+  className={`
+    px-4
+    py-4
 
-                ${
-                  active
-                    ? "bg-slate-800"
-                    : ""
-                }
+    cursor-pointer
 
-                ${
-                  selected
-                    ? "text-blue-400"
-                    : "text-white"
-                }
-              `}
-            >
-              {mode.label}
-            </div>
+    transition-all
+    duration-200
+
+    ${
+      active
+        ? "bg-violet-500/10 text-violet-200"
+        : ""
+    }
+
+    ${
+      selected
+        ? "text-violet-300"
+        : "text-white"
+    }
+  `}
+>
+  {mode.label}
+</div>
           )}
         </Listbox.Option>
       ))}
@@ -258,22 +322,25 @@ const durations = [
     >
 
       <Listbox.Button
-        className="
-          w-full
-          bg-slate-950
-          border
-          border-slate-800
-          px-4
-          py-4
-          text-left
-        focus:border-blue-500
-          text-white
-          hover:border-slate-700
-          focus:outline-none
-          transition-all
-          duration-300
-        "
-      >
+  className="
+    w-full
+    bg-black/50
+    border
+    border-zinc-800
+    px-4
+    py-4
+    text-left
+    text-white
+
+    focus:outline-none
+    focus:border-violet-500
+
+    hover:border-violet-500/30
+
+    transition-all
+    duration-300
+  "
+>
         {
           durations.find(
             (duration) =>
@@ -283,21 +350,29 @@ const durations = [
       </Listbox.Button>
 
       <Listbox.Options
-        className="
-          absolute
-          left-0
-          top-full
-          mt-2
-          z-[999]
-          w-full
-          
-          border
-          border-slate-800
-          bg-slate-900
-          shadow-2xl
-          overflow-hidden
-        "
-      >
+  className="
+    absolute
+    left-0
+    top-full
+    mt-2
+    z-[999]
+
+    w-full
+
+    rounded-xl
+
+    border
+    border-zinc-800
+
+    bg-gradient-to-b
+    from-zinc-900
+    to-black
+
+    shadow-2xl
+
+    overflow-hidden
+  "
+>
 
         {durations.map((duration) => (
 
@@ -308,28 +383,30 @@ const durations = [
             {({ active, selected }) => (
 
               <div
-                className={`
-                  px-4
-                  py-4
-                  cursor-pointer
-                  transition-all
-                  duration-200
+  className={`
+    px-4
+    py-4
 
-                  ${
-                    active
-                      ? "bg-slate-800"
-                      : ""
-                  }
+    cursor-pointer
 
-                  ${
-                    selected
-                      ? "text-blue-400"
-                      : "text-white"
-                  }
-                `}
-              >
-                {duration.label}
-              </div>
+    transition-all
+    duration-200
+
+    ${
+      active
+        ? "bg-violet-500/10 text-violet-200"
+        : ""
+    }
+
+    ${
+      selected
+        ? "text-violet-300"
+        : "text-white"
+    }
+  `}
+>
+  {duration.label}
+</div>
 
             )}
           </Listbox.Option>
@@ -349,25 +426,61 @@ const durations = [
               <div className="flex gap-4">
 
                 <button
-                  onClick={createDebate}
-                  className="
-        flex-1
-        bg-white
-        text-black
-        mt-8
-        py-4
-        font-semibold
-        hover:bg-slate-200
-        hover:scale-[1.01]
-        active:scale-[0.99]
-        transition-all
-        duration-300
-      "
-                >
-                  Start Debate
-                </button>
+  onClick={createDebate}
+  className="
+    group
+    relative
+    overflow-hidden
+
+    w-full
+
+    bg-violet-500
+    text-white
+
+    py-4
+    mt-8
+
+    font-semibold
+
+    transition-all
+    duration-300
+
+    hover:bg-violet-400
+    hover:-translate-y-0.5
+    hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
+  "
+>
+
+  <span
+    className="
+      absolute
+      top-0
+      left-[-150%]
+      h-full
+      w-[50%]
+
+      bg-gradient-to-r
+      from-transparent
+      via-white/20
+      to-transparent
+
+      skew-x-12
+
+      group-hover:left-[150%]
+
+      transition-all
+      duration-700
+    "
+  />
+
+  <span className="relative">
+    Start Debate
+  </span>
+
+</button>
               </div>
             </div>
+          </div>
           </div>
         
       </>
