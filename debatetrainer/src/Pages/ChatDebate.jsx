@@ -107,6 +107,11 @@ Example format:
 }
 `;
       const reportText = await getAIResponse(prompt);
+      if (!reportText) {
+        alert(
+          "AI is currently busy. Please try again in a few moments."
+        );    
+      }
 
       const cleaned = reportText
         .replace(/```json/g, "")
@@ -176,6 +181,12 @@ Example format:
 
       Conversation:${convoHistory} `;
       const aiResponse = await getAIResponse(prompt);
+      if (!aiResponse) {
+        alert(
+          "AI is currently busy. Please try again in a few moments."
+        );
+        
+      }
       const { data, error } = await supabase.from('debate_messages').insert({
         sender: 'ai',
         debate_id: debateId,
