@@ -1,9 +1,38 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import supabase from "../lib/supabase";
 
 function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      setUser(user);
+    };
+
+    getUser();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(
+      (_, session) => {
+        setUser(session?.user ?? null);
+      }
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const logout = async () => {
+    await supabase.auth.signOut();
+    setMobileOpen(false);
+  };
 
   return (
     <nav className="sticky top-0 z-50 backdrop-blur-xl bg-[#09090B]/70 border-b border-zinc-800">
@@ -60,73 +89,96 @@ function Navbar() {
 
         </div>
 
-        <div className="flex items-center gap-3">
+        {user ? (
+          <div className="hidden md:flex items-center gap-3">
 
-          <Link
-            to="/create-debate"
-            className="
-              hidden md:inline-flex
-
-              group
-              relative
-              overflow-hidden
-
-              bg-violet-500
-              text-white
-
-              px-5
-              py-2.5
-
-              font-medium
-
-              transition-all
-              duration-300
-
-              hover:bg-violet-400
-              hover:-translate-y-0.5
-              hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
-            "
-          >
-            <span
+            <Link
+              to="/create-debate"
               className="
-                absolute
-                top-0
-                left-[-150%]
-                h-full
-                w-[50%]
+                bg-violet-500
+                text-white
+                px-5
+                py-2.5
+                font-medium
+                transition-all
+                duration-300
+                hover:bg-violet-400
+                hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+              "
+            >
+              Start Debate
+            </Link>
 
-                bg-gradient-to-r
-                from-transparent
-                via-white/20
-                to-transparent
-
-                skew-x-12
-
-                group-hover:left-[150%]
+            <button
+              onClick={logout}
+              className="
+                border
+                border-zinc-800
+                px-5
+                py-2.5
 
                 transition-all
-                duration-700
+                duration-300
+
+                hover:border-red-500/40
+                hover:bg-red-500/10
+                hover:text-red-400
               "
-            />
+            >
+              Logout
+            </button>
 
-            <span className="relative">
-              Start Debate
-            </span>
+          </div>
+        ) : (
+          <div className="hidden md:flex items-center gap-3">
 
-          </Link>
+            <Link
+              to="/login"
+              className="
+                border
+                border-zinc-800
+                px-5
+                py-2.5
 
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="
-              md:hidden
-              text-white
-              text-2xl
-            "
-          >
-            {mobileOpen ? "✕" : "☰"}
-          </button>
+                transition-all
+                duration-300
 
-        </div>
+                hover:border-violet-500/40
+              "
+            >
+              Login
+            </Link>
+
+            <Link
+              to="/signup"
+              className="
+                bg-violet-500
+                text-white
+                px-5
+                py-2.5
+
+                transition-all
+                duration-300
+
+                hover:bg-violet-400
+              "
+            >
+              Sign Up
+            </Link>
+
+          </div>
+        )}
+
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="
+            md:hidden
+            text-2xl
+            text-white
+          "
+        >
+          {mobileOpen ? "✕" : "☰"}
+        </button>
 
       </div>
 
@@ -189,26 +241,87 @@ function Navbar() {
                 Debate Results
               </Link>
 
-              <Link
-                to="/create-debate"
-                onClick={() => setMobileOpen(false)}
-                className="
-                  bg-violet-500
-                  text-center
-                  text-white
+              {user ? (
+                <>
+                  <Link
+                    to="/create-debate"
+                    onClick={() => setMobileOpen(false)}
+                    className="
+                      bg-violet-500
+                      text-center
+                      text-white
+                      py-3
+                      font-medium
+                      transition-all
+                      duration-300
+                      hover:bg-violet-400
+                    "
+                  >
+                    Start Debate
+                  </Link>
 
-                  py-3
+                  <button
+                    onClick={logout}
+                    className="
+                      border
+                      border-red-500/20
 
-                  font-medium
+                      text-red-400
 
-                  transition-all
-                  duration-300
+                      py-3
 
-                  hover:bg-violet-400
-                "
-              >
-                Start Debate
-              </Link>
+                      transition-all
+                      duration-300
+
+                      hover:bg-red-500/10
+                    "
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileOpen(false)}
+                    className="
+                      border
+                      border-zinc-800
+
+                      py-3
+                      text-center
+
+                      transition-all
+                      duration-300
+
+                      hover:border-violet-500/40
+                    "
+                  >
+                    Login
+                  </Link>
+
+                  <Link
+                    to="/signup"
+                    onClick={() => setMobileOpen(false)}
+                    className="
+                      bg-violet-500
+                      text-center
+                      text-white
+
+                      py-3
+
+                      font-medium
+
+                      transition-all
+                      duration-300
+
+                      hover:bg-violet-400
+                    "
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
 
             </div>
 

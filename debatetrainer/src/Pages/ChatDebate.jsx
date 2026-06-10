@@ -113,11 +113,15 @@ Example format:
         .replace(/```/g, "")
         .trim();
 
+      console.log("RAW GEMINI:", reportText);
       const report = JSON.parse(cleaned);
+      console.log("PARSED REPORT:", report);
 
       try {
         const {data:userData} = await supabase.auth.getUser();
-        const { error } = await supabase.from('debate_reports').insert({
+        const { error } = await supabase
+          .from('debate_reports')
+          .insert({
           debate_id: debateId,
           persuasion_score: report.persuasion_score,
           logic_score: report.logic_score,
@@ -134,15 +138,19 @@ Example format:
 
         if (error) {
           console.log(error);
-          return;
+          return false;
         }
+        return true;
+
       } catch (error) {
         console.log(error)
+        return false;
       }
 
     } catch (error) {
       console.log(error);
     }
+
   }
 
   const generateAIResponse = async (convoMessages) => {
@@ -529,7 +537,7 @@ to-black border ${theme.border}`
       <div className="border-t border-slate-800 bg-[#09090B]
 border-zinc-800">
 
-        <div className="max-w-5xl mx-auto p-6 flex flex-col sm:flex-row gap-4">
+        <div className="max-w-5xl w-full sm:w-auto mx-auto p-6 flex sm:flex-row gap-4">
 
           <input
             value={newMessage}
@@ -562,7 +570,8 @@ ${theme.border}
             className="
           bg-violet-500
           text-white
-          w-full sm:w-auto
+          
+          w-[80px]
           font-semibold
           hover:bg-violet-400
           hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]

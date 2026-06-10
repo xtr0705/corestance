@@ -47,7 +47,7 @@ function App() {
           }
         />
         <Route
-          path="/History/:user_id"
+          path="/history"
           element={
             <ProtectedRoute>
 

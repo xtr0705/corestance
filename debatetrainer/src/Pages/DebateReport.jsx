@@ -26,7 +26,8 @@ function DebateReport() {
     FetchReport();
   }, [debateId])
 
-  if (!report) {
+
+  if (!report|| report.length===0) {
     return (
       <div className="
 min-h-screen
@@ -116,7 +117,7 @@ overflow-hidden
         >
 
           <p className="text-zinc-500 uppercase tracking-widest mb-3">
-            Final Verdict (winner)
+            Winner
           </p>
 
 
@@ -362,7 +363,7 @@ hover:-translate-y-0.5
 hover:shadow-[0_0_20px_rgba(139,92,246,0.08)]
 "
               onClick={() => {
-                navigate('/History/:user_id');
+                navigate('/history');
               }}
             >History</button>
           </div>
