@@ -63,15 +63,15 @@ DebateArena is an AI-powered debate platform where users can engage in structure
 
 ## Home Page
 
-![Home Page](screenshots/home.png)
+![Home Page](https://raw.githubusercontent.com/xtr0705/xtr-debait-trainer/main/screenshots/home.png)
 
 ## Debate Chat
 
-![Debate Chat](screenshots/chat.png)
+![Debate Chat](https://raw.githubusercontent.com/xtr0705/xtr-debait-trainer/main/screenshots/chat.png)
 
 ## Debate Report
 
-![Debate Report](screenshots/report.png)
+![Debate Report](https://raw.githubusercontent.com/xtr0705/xtr-debait-trainer/main/screenshots/report.png)
 
 ## Installation
 
