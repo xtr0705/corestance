@@ -63,15 +63,15 @@ DebateArena is an AI-powered debate platform where users can engage in structure
 
 ## Home Page
 
-![Home Page](./screenshots/home.png)
+![Home Page](screenshots/home.png)
 
 ## Debate Chat
 
-![Debate Chat](./screenshots/chat.png)
+![Debate Chat](screenshots/chat.png)
 
 ## Debate Report
 
-![Debate Report](./screenshots/report.png)
+![Debate Report](screenshots/report.png)
 
 ## Installation
 
