@@ -4,11 +4,17 @@ import supabase from "../lib/supabase";
 function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [currentUserData, setCurrentUserData] = useState([]);
-  const [userData,setUserData] = useState([]);
+  const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [myRank, setMyRank] = useState('');
 
   useEffect(() => {
+
     const Data = async () => {
+      const { data: { user }} = await supabase.auth.getUser();
+      const userId = user.id
+      console.log("Current User ID:", userId)
+
       const { data: reports, error } = await supabase
         .from('debate_reports')
         .select(`
@@ -29,8 +35,11 @@ function Leaderboard() {
       const users = {};
       reports.forEach(report => {
         const userId = report.user_id;
+        console.log(userId);
+
         if (!users[userId]) {
           users[userId] = {
+            id: userId,
             username: report.profiles?.username ?? "Unknown",
             overallSum: 0,
             logicSum: 0,
@@ -48,6 +57,7 @@ function Leaderboard() {
       const sortedData = Object.values(users)
         .filter(user => user.debateCount >= 3)
         .map((user) => ({
+          id: user.id,
           username: user.username,
           avgOverall: Number(user.overallSum / user.debateCount).toFixed(1),
           avgLogic: Number(user.logicSum / user.debateCount).toFixed(1),
@@ -57,6 +67,22 @@ function Leaderboard() {
       sortedData.sort(
         (a, b) => b.avgOverall - a.avgOverall
       );
+
+      async function Rank() {
+        const myRank = sortedData.map((ids, index) => {
+          console.log(index);
+          if (userId == ids.id) {
+            setMyRank(index);
+            console.log(myRank);
+            
+          } else {
+            console.log('no rank found');
+          }
+        })
+      }
+
+
+      Rank();
       console.log(sortedData);
       setLeaderboard(sortedData);
       setLoading(false)
@@ -106,20 +132,56 @@ function Leaderboard() {
           avgLogic: Number(user.logicSum / user.debateCount).toFixed(1),
           avgPersuasion: Number(user.persuasionSum / user.debateCount).toFixed(1),
           debateCount: user.debateCount,
-      }))
+        }))
       sortedData.sort(
         (a, b) => b.avgOverall - a.avgOverall
       );
       console.log(userFinalData);
       setUserData(userFinalData);
-      Data()
+      Data();
     }
+
     fetchCurrentUserData();
     Data()
   }, [])
 
   if (loading) {
-    return <p>Loading....</p>
+    return (
+      <div className="min-h-screen bg-[#09090B] text-white flex items-center justify-center">
+
+        <div className="text-center">
+
+          <div className="flex justify-center mb-6">
+
+            <div
+              className="
+          w-16
+          h-16
+
+          rounded-full
+
+          border-2
+          border-amber-500/20
+          border-t-amber-400
+
+          animate-spin
+        "
+            />
+
+          </div>
+
+          <h2 className="text-3xl font-serif text-amber-400 mb-3 animate-glow">
+            Hall of Debaters
+          </h2>
+
+          <p className="text-zinc-400">
+            Calculating rankings...
+          </p>
+
+        </div>
+
+      </div>
+    )
   } else {
 
     return (
@@ -264,58 +326,58 @@ function Leaderboard() {
             <div className="flex items-center justify-between flex-wrap gap-4">
 
               <div>
-      <p className="text-slate-400 text-sm">
-        Your Ranking
-      </p>
+                <p className="text-slate-400 text-sm">
+                  Your Ranking
+                </p>
 
-      <h2 className="text-3xl font-bold text-violet-400">
-        your rank
-      </h2>
-    </div>
+                <h2 className="text-3xl font-bold text-violet-400">
+                  {myRank}
+                </h2>
+              </div>
 
-    <div className="flex gap-8 flex-wrap">
+              <div className="flex gap-8 flex-wrap">
 
-      <div>
-        <p className="text-slate-500 text-sm">
-          Overall
-        </p>
+                <div>
+                  <p className="text-slate-500 text-sm">
+                    Overall
+                  </p>
 
-        <p className="text-xl font-bold text-violet-400">
-          {userData.avgOverall}
-        </p>
-      </div>
+                  <p className="text-xl font-bold text-violet-400">
+                    {userData?userData.avgOverall:'N/A'}
+                  </p>
+                </div>
 
-      <div>
-        <p className="text-slate-500 text-sm">
-          Logic
-        </p>
+                <div>
+                  <p className="text-slate-500 text-sm">
+                    Logic
+                  </p>
 
-        <p className="text-lg text-slate-300">
-          {userData.avgLogic}
-        </p>
-      </div>
+                  <p className="text-lg text-slate-300">
+                    {userData?userData.avgLogic:'N/A'}
+                  </p>
+                </div>
 
-      <div>
-        <p className="text-slate-500 text-sm">
-          Persuasion
-        </p>
+                <div>
+                  <p className="text-slate-500 text-sm">
+                    Persuasion
+                  </p>
 
-        <p className="text-lg text-slate-300">
-          {userData.avgPersuasion}
-        </p>
-      </div>
+                  <p className="text-lg text-slate-300">
+                    {userData?userData.avgPersuasion:'N/A'}
+                  </p>
+                </div>
 
-      <div>
-        <p className="text-slate-500 text-sm">
-          Debates
-        </p>
+                <div>
+                  <p className="text-slate-500 text-sm">
+                    Debates
+                  </p>
 
-        <p className="text-lg text-slate-300">
-          {userData.debateCount}
-        </p>
-      </div>
+                  <p className="text-lg text-slate-300">
+                    {userData?userData.debateCount:'N/A'}
+                  </p>
+                </div>
 
-    </div> 
+              </div>
 
             </div>
           </div>

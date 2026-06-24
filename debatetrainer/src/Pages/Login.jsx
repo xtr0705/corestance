@@ -35,20 +35,6 @@ function Login() {
     navigate("/");
   };
 
-  const signInWithGoogle = async () => {
-    const { error } =
-      await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: window.location.origin
-        }
-      });
-
-    if (error) {
-      console.log(error);
-    }
-
-  };
 
   return (
     <div
@@ -256,23 +242,7 @@ mb-6">
                 </span>
 
               </button>
-              <button
-                onClick={signInWithGoogle}
-                className="
-    w-full
-    border
-    border-zinc-800
-    py-3
-    flex
-    items-center
-    justify-center
-    gap-3
-    hover:border-zinc-700
-    transition
-  "
-              >
-                Continue with Google
-              </button>
+              
             </form>
           </div>
 
