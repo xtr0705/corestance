@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import supabase from "../lib/supabase";
+import { useMemo } from "react";
 
 function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [myRank, setMyRank] = useState('');
 
   useEffect(() => {
-
     const Data = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       const userId = user.id
@@ -66,7 +67,7 @@ function Leaderboard() {
 
       console.log(sortedData);
       setLeaderboard(sortedData);
-      
+
     }
 
     const fetchCurrentUserData = async () => {
@@ -97,7 +98,7 @@ function Leaderboard() {
       reports.forEach(report => {
         const userId = report.user_id;
         console.log(report);
-        
+
         if (!userFinalData[userId]) {
           userFinalData[userId] = {
             username: report.profiles?.username || 'Unknown',
@@ -114,7 +115,7 @@ function Leaderboard() {
         userFinalData[userId].debateCount += 1;
       })
       console.log(userFinalData);
-      
+
       const sortedData = Object.values(userFinalData)
         .filter(user => user.debateCount >= 3)
         .map((user) => ({
@@ -132,17 +133,34 @@ function Leaderboard() {
       console.log(sortedData);
       setUserData(sortedData);
       setLoading(false);
+
+
+
+
     }
-    
-    fetchCurrentUserData();
+
     Data()
-    
+    fetchCurrentUserData();
   }, [])
 
-  console.log(userData);
-  console.log(leaderboard);
   const userFinalData = userData[0];
-  
+
+  useEffect(()=>{
+    const setUserRank = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      const id = user?.id;
+      console.log(id);
+      leaderboard.forEach((user, index) => {
+        if (id === user.id) {
+          setMyRank(index + 1);
+        }
+      })
+    }
+    if (leaderboard.length>0) {
+      
+      setUserRank();
+    }
+  },[leaderboard])
 
   if (loading) {
     return (
@@ -330,7 +348,7 @@ function Leaderboard() {
                 </p>
 
                 <h2 className="text-3xl font-bold text-violet-400">
-                  {userData ? userData.rank : 'N/A'}
+                  {myRank}
                 </h2>
               </div>
 
