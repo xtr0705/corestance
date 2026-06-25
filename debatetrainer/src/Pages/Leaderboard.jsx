@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import supabase from "../lib/supabase";
 import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [myRank, setMyRank] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const Data = async () => {
@@ -318,14 +320,14 @@ function Leaderboard() {
           </div>
           <div
             className="
-    max-w-5xl
+    max-w-8xl
     mx-auto
     mb-10
     mt-10
     border
     border-violet-500/20
     bg-zinc-950
-    p-6
+    p-5
   "
           >
             <div className="flex items-center justify-between flex-wrap gap-4">
@@ -386,6 +388,35 @@ function Leaderboard() {
 
             </div>
           </div>
+
+          <button
+              onClick={
+                ()=>navigate('/')
+              }
+              className="
+
+group
+relative
+overflow-hidden
+
+bg-violet-500
+text-white
+
+px-8
+py-4
+
+font-semibold
+
+transition-all
+duration-300
+
+hover:bg-violet-400
+hover:-translate-y-0.5
+hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
+"
+            >
+              Home
+            </button>
 
           {leaderboard.length === 0 && (
             <div className="text-center mt-12">
