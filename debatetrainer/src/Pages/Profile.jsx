@@ -1,65 +1,81 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import supabase from "../lib/supabase";
 
 function Profile() {
-  const profileFinalInfo = {
-    pfp: 'pfp',
-    username: 'username',
-    highest_score: 0,
-    lowest_score: 0,
-    highest_debate: 'highest_debate',
-    lowest_debate: 'lowest_debate'
-  }
 
-  const userInfo = async () => {
-    const { data: { user }, error } = await supabase.auth.getUser();
-    console.log(user);
+  const [profileFinalInfo, setProfileFinalInfo] = useState({
+    highest_debate: '',
+    lowest_debate: '',
+    highest_overall: 0,
+    lowest_overall: 0
+  });
 
-    if (user) {
-      const { data: profile, error } = await supabase
-        .from('profiles')
-        .select()
-        .eq('id', user.id)
-      console.log(profile);
+  useEffect(() => {
+    const userInfo = async () => {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      console.log(user);
 
-      const rawReportData = []
-      const { data: reports } = await supabase
-        .from('debate_reports')
-        .select()
-        .eq('user_id', user.id)
-      console.log(reports);
-      reports.forEach((report) => {
-        rawReportData.push(report);
-      })
+      if (user) {
+        const { data: profile, error } = await supabase
+          .from('profiles')
+          .select()
+          .eq('id', user.id)
+        console.log(profile);
+
+        const rawReportData = []
+        const { data: reports } = await supabase
+          .from('debate_reports')
+          .select()
+          .eq('user_id', user.id)
+        console.log(reports);
+        reports.forEach((report) => {
+          rawReportData.push(report);
+        })
 
 
-      let overall = 0;
-      let topDebate;
-      for (let i = 0; i < rawReportData.length; i++) {
-        if (overall < rawReportData[i].overall_score) {
-          overall = rawReportData[i].overall_score;
-          topDebate = rawReportData[i].topic;
+        let overall = 0;
+        let topDebate;
+        let leastDebate;
+        let least = 0;
+        for (let i = 0; i < rawReportData.length; i++) {
+          if (overall < rawReportData[i].overall_score) {
+            overall = rawReportData[i].overall_score;
+            topDebate = rawReportData[i].topic;
+          }
+        }
+        for (let i = 0; i < rawReportData.length; i++) {
+          if (overall > rawReportData[i].overall_score) {
+            least = rawReportData[i].overall_score;
+            leastDebate = rawReportData[i].topic;
+          }
+        }
+        console.log(least);
+        console.log(leastDebate);
+        console.log(topDebate);
+
+        const modelObject = {
+          highest_debate: topDebate,
+          lowest_debate: leastDebate,
+          highest_overall: overall,
+          lowest_overall: least
+        };
+        setProfileFinalInfo(modelObject)
+        console.log(modelObject);
+
+
+        if (error) {
+          console.log(error);
+          return;
         }
       }
-      profileFinalInfo.highest_score = overall;
-      console.log(overall);
-      console.log(topDebate);
-      
-      
-
-
       if (error) {
         console.log(error);
         return;
       }
     }
-    if (error) {
-      console.log(error);
-      return;
-    }
-  }
-  userInfo();
+    userInfo();
+  }, [])
 
 
   return (
@@ -135,13 +151,11 @@ function Profile() {
             <div className="border border-white/10 bg-[#111111] p-8 hover:border-copper-light transition duration-300">
 
               <p className="text-xs tracking-[0.3em] text-white/40 uppercase">
-                Highest Score
+                Highest
               </p>
 
               <h4 className="mt-8 text-2xl font-semibold leading-relaxed">
-                AI WILL REPLACE
-                <br />
-                SOFTWARE ENGINEERS
+                {profileFinalInfo.highest_debate}
               </h4>
 
               <div className="mt-10">
@@ -151,7 +165,7 @@ function Profile() {
                 </p>
 
                 <h2 className="text-6xl font-bold mt-2 text-copper-light">
-                  94
+                  {profileFinalInfo.highest_overall}
                 </h2>
 
               </div>
@@ -169,10 +183,8 @@ function Profile() {
                 Lowest Score
               </p>
 
-              <h4 className="mt-8 text-2xl font-semibold leading-relaxed">
-                SHOULD HOMEWORK
-                <br />
-                BE BANNED?
+              <h4 className="mt-8 uppercase text-2xl font-semibold leading-relaxed">
+                {profileFinalInfo.lowest_debate}
               </h4>
 
               <div className="mt-10">
@@ -182,7 +194,7 @@ function Profile() {
                 </p>
 
                 <h2 className="text-6xl font-bold mt-2 text-copper-light">
-                  51
+                  {profileFinalInfo.lowest_overall}
                 </h2>
 
               </div>
