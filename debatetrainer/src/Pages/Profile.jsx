@@ -5,26 +5,30 @@ import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const navigate = useNavigate();
-  const [pfp,setPfp]=useState('https://picsum.photos');
-  const [username,setUsername]=useState('');
+  const [pfp, setPfp] = useState('https://picsum.photos');
+  const [doc, setDoc] = useState('');
+  const [username, setUsername] = useState('');
   const [profileFinalInfo, setProfileFinalInfo] = useState({
     highest_debate: '',
     lowest_debate: '',
     highest_overall: 0,
     lowest_overall: 0,
-    pfp: 'img',
-    username: 'abcd',
+    pfp: pfp,
+    username: username,
+    doc: doc
   });
 
-  const handleImageChange = (e)=>{
+
+
+  const handleImageChange = (e) => {
     const files = e.target.files;
-    if (files && files.length>0) {
+    if (files && files.length > 0) {
       console.log(files);
-      
+
       const localUrl = URL.createObjectURL(files[0]);
       setPfp(localUrl);
       console.log(localUrl);
-      
+
     }
   }
 
@@ -40,6 +44,14 @@ function Profile() {
           .eq('id', user.id)
         console.log(profile);
         setUsername(profile[0].username);
+        const timestamp = profile[0].created_at;
+        const formattedDate = new Intl.DateTimeFormat("en-GB", {
+          month: "short",
+          year: "2-digit",
+        }).format(new Date(timestamp));
+
+        console.log(formattedDate);
+        setDoc(formattedDate);
 
         const rawReportData = []
         const { data: reports } = await supabase
@@ -76,8 +88,10 @@ function Profile() {
           lowest_debate: leastDebate,
           highest_overall: overall,
           lowest_overall: least,
-          pfp:pfp,
-          username:username
+          pfp: pfp,
+          username: username,
+          doc: doc,
+          debate_No:rawReportData.length
         };
         setProfileFinalInfo(modelObject)
         console.log(modelObject);
@@ -117,33 +131,33 @@ function Profile() {
 
             <div className="border-r border-white/10 flex items-center justify-center p-8">
 
-           
-                 <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-xl max-w-xs mx-auto shadow-sm">
-      {/* Clickable Image Container */}
-      <label htmlFor="pfp-file-input" className="group relative cursor-pointer overflow-hidden rounded-full w-36 h-36 border-4 border-white shadow-md ring-2 ring-indigo-500/20 transition-all hover:ring-indigo-500">
-        <img 
-          src={pfp} 
-          alt="Profile Preview" 
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
-        />
-        {/* Dark Hover Overlay */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-200">
-          <span className="text-white text-xs font-medium tracking-wide">Change Photo</span>
-        </div>
-      </label>
 
-      {/* Hidden File Input */}
-      <input 
-        type="file" 
-        id="pfp-file-input" 
-        accept="image/*" 
-        className="hidden" 
-        onChange={handleImageChange} 
-      />
-      
-      
-    </div>
-              
+              <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-xl max-w-xs mx-auto shadow-sm">
+                {/* Clickable Image Container */}
+                <label htmlFor="pfp-file-input" className="group relative cursor-pointer overflow-hidden rounded-full w-36 h-36 border-4 border-white shadow-md ring-2 ring-indigo-500/20 transition-all hover:ring-indigo-500">
+                  <img
+                    src={pfp}
+                    alt="Profile Preview"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  {/* Dark Hover Overlay */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-200">
+                    <span className="text-white text-xs font-medium tracking-wide">Change Photo</span>
+                  </div>
+                </label>
+
+                {/* Hidden File Input */}
+                <input
+                  type="file"
+                  id="pfp-file-input"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageChange}
+                />
+
+
+              </div>
+
             </div>
 
 
@@ -152,23 +166,20 @@ function Profile() {
                 {username}
               </h2>
 
-              <p className="mt-2 text-white/60">
-                Frontend Developer
-              </p>
 
               <div className="mt-8 flex gap-10 text-sm uppercase tracking-wider">
 
                 <div>
                   <p className="text-white/40">Debates</p>
                   <p className="text-3xl font-semibold mt-2">
-                    27
+                    {profileFinalInfo.debate_No}
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-white/40">Member Since</p>
+                  <p className="text-white/40">Account created on</p>
                   <p className="text-3xl font-semibold mt-2">
-                    Jun 2026
+                    {doc}
                   </p>
                 </div>
 
