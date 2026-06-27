@@ -128,7 +128,7 @@ function Profile() {
 
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.12),transparent_50%)]" />
 
-      <div className="relative max-w-6xl mx-auto px-6 py-12">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
         <div className="mb-14 text-center">
 
@@ -136,11 +136,11 @@ function Profile() {
             DebateArena
           </p>
 
-          <h1 className="text-5xl md:text-6xl font-serif">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif">
             Your Profile
           </h1>
 
-          <p className="mt-5 text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-4 text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed px-2">
             Track your debate journey, revisit your strongest arguments,
             and measure your growth over time.
           </p>
@@ -159,12 +159,24 @@ shadow-[0_0_40px_rgba(139,92,246,0.05)]">
           <div className="grid md:grid-cols-[180px_1fr]">
 
 
-            <div className="border-r border-white/10 flex items-center justify-center p-8">
+            <div className="
+border-b
+md:border-b-0
+md:border-r
+border-zinc-800
+
+flex
+items-center
+justify-center
+
+p-6
+sm:p-8
+">
 
 
               <div className="flex flex-col items-center justify-center p-6  max-w-xs mx-auto shadow-sm">
                 <label htmlFor="pfp-file-input" className="group relative cursor-pointer overflow-hidden border
-border-violet-500/30 w-40 h-40 shadow-md ring-2 ring-indigo-500/20 transition-all hover:ring-indigo-500">
+border-violet-500/30 w-32 h-32 sm:w-40 sm:h-40 shadow-md ring-2 ring-indigo-500/20 transition-all hover:ring-indigo-500">
                   <img
                     src={pfp}
                     alt="Profile Preview"
@@ -172,7 +184,7 @@ border-violet-500/30 w-40 h-40 shadow-md ring-2 ring-indigo-500/20 transition-al
                   />
                   {/* Dark Hover Overlay */}
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-200">
-                    <span className="text-white text-xs font-medium tracking-wide">Change Photo</span>
+                    <span className="hidden sm:block text-white text-xs font-medium tracking-wide">Change Photo</span>
                   </div>
                 </label>
 
@@ -191,14 +203,14 @@ border-violet-500/30 w-40 h-40 shadow-md ring-2 ring-indigo-500/20 transition-al
             </div>
 
 
-            <div className="p-8 flex flex-col justify-center">
+            <div className="p-6 sm:p-8 flex flex-col justify-center text-center md:text-left">
              
-              <h2 className="text-5xl font-serif">
+              <h2 className="text-3xl sm:text-5xl font-serif">
                 {username}
               </h2>
 
 
-              <div className="grid md:grid-cols-2 gap-6 mt-10">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
 
   <div className="border border-zinc-800 bg-black/40 p-5">
 
@@ -206,7 +218,7 @@ border-violet-500/30 w-40 h-40 shadow-md ring-2 ring-indigo-500/20 transition-al
       Debates
     </p>
 
-    <h3 className="text-4xl font-bold mt-4 text-violet-400">
+    <h3 className="text-3xl sm:text-4xl font-bold mt-4 text-violet-400">
       {profileFinalInfo.debate_No}
     </h3>
 
@@ -218,7 +230,7 @@ border-violet-500/30 w-40 h-40 shadow-md ring-2 ring-indigo-500/20 transition-al
       Joined
     </p>
 
-    <h3 className="text-2xl font-semibold mt-5">
+    <h3 className="text-lg sm:text-2xl font-semibold mt-5">
       {doc}
     </h3>
 
@@ -234,14 +246,14 @@ border-violet-500/30 w-40 h-40 shadow-md ring-2 ring-indigo-500/20 transition-al
         <section className="mt-14">
 
           <div className="mb-6">
-            <h3 className="text-3xl font-serif text-4xl">
+            <h3 className="text-3xl font-serif sm:text-4xl">
               PERFORMANCE
             </h3>
 
             <div className="mt-2 h-0.5 w-24 bg-violet-500"></div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid lg:grid-cols-2 gap-6">
 
 
             <div className="bg-gradient-to-br
@@ -251,7 +263,7 @@ to-black
 border
 border-zinc-800
 
-p-8 
+p-6 sm:p-8 
 flex
 flex-col
 hover:border-violet-500/40
@@ -263,7 +275,7 @@ duration-300">
                Best Performance
               </p>
 
-              <h4 className="mt-8 uppercase text-2xl font-semibold leading-relaxed h-24">
+              <h4 className="mt-10 uppercase text-lg sm:text-2xl font-semibold leading-relaxed min-h-[72px] sm:h-24">
                 {profileFinalInfo.highest_debate}
               </h4>
 
@@ -273,14 +285,14 @@ duration-300">
                   Score
                 </p>
 
-                <h2 className="text-6xl font-bold mt-2 text-violet-400">
+                <h2 className="text-5xl sm:text-6xl font-bold mt-2 text-violet-400">
                   {profileFinalInfo.highest_overall}
                 </h2>
 
               </div>
 
-              <button className="mt-8 bg-violet-500
-text-white px-5 shadow-sm py-3 uppercase tracking-wider text-sm hover:bg-violet-400
+              <button className="mt-10 bg-violet-500
+text-white w-full sm:w-fit shadow-sm py-3 px-3 uppercase tracking-wider text-sm hover:bg-violet-400
 hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
 transition"
                 onClick={
@@ -303,13 +315,13 @@ border
 border-zinc-800
 hover:border-violet-500/40
 
-shadow-[0_0_40px_rgba(139,92,246,0.05)] p-8 hover:border-copper-light transition duration-300">
+shadow-[0_0_40px_rgba(139,92,246,0.05)] p-6 sm:p-8 hover:border-copper-light transition duration-300">
 
               <p className="text-xs tracking-[0.3em] text-white/40 uppercase">
                 Needs Improvement
               </p>
 
-              <h4 className="mt-8 uppercase text-2xl font-semibold leading-relaxed h-24">
+              <h4 className="mt-8 uppercase text-lg sm:text-2xl font-semibold leading-relaxed min-h-[72px] sm:h-24">
                 {profileFinalInfo.lowest_debate}
               </h4>
 
@@ -319,14 +331,14 @@ shadow-[0_0_40px_rgba(139,92,246,0.05)] p-8 hover:border-copper-light transition
                   Score
                 </p>
 
-                <h2 className="text-6xl font-bold mt-2 text-violet-400">
+                <h2 className="text-5xl sm:text-6xl font-bold mt-2 text-violet-400">
                   {profileFinalInfo.lowest_overall}
                 </h2>
 
               </div>
 
-              <button className="mt-8 bg-violet-500
-text-white px-5 py-3 uppercase tracking-wider text-sm hover:bg-violet-400
+              <button className="mt-10 bg-violet-500
+text-white w-full sm:w-fit px-3 py-3 uppercase tracking-wider text-sm hover:bg-violet-400
 hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
 transition"
                 onClick={
