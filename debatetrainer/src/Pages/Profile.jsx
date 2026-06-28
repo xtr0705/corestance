@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const navigate = useNavigate();
-  const [pfp, setPfp] = useState('https://picsum.photos');
+  const [pfp, setPfp] = useState('/default-pfp.jpg');
   const [doc, setDoc] = useState('');
   const [username, setUsername] = useState('');
   const [profileFinalInfo, setProfileFinalInfo] = useState({
@@ -22,8 +22,16 @@ function Profile() {
 
   const handleImageChange = async (e) => {
     const file = e.target.files?.[0];
-
     if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      alert('Please select an image.');
+      return;
+    }
+
+    if (file.size > 2*1024*1024) {
+      alert('Image must be smaller than 2 MB');
+      return;
+    }
 
     const { data: { user } } = await supabase.auth.getUser();
 
