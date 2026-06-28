@@ -20,16 +20,44 @@ function Profile() {
 
 
 
-  const handleImageChange = (e) => {
-    const files = e.target.files;
-    if (files && files.length > 0) {
-      console.log(files);
+  const handleImageChange = async (e) => {
+    const file = e.target.files?.[0];
 
-      const localUrl = URL.createObjectURL(files[0]);
-      setPfp(localUrl);
-      console.log(localUrl);
+    if (!file) return;
 
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    const extension = file.name.split(".").pop();
+    const fileName = `${user.id}.${extension}`;
+    const { error: uploadError } = await supabase.storage
+      .from("pfp")
+      .upload(fileName, file, {
+        upsert: true,
+      });
+
+    if (uploadError) {
+      console.log(uploadError);
+      return;
     }
+    const { data: { publicUrl } } = supabase.storage
+      .from("pfp")
+      .getPublicUrl(fileName);
+
+    const { error: dbError } = await supabase
+      .from('profiles')
+      .update({
+        pfp: publicUrl,
+      })
+      .eq('id', user.id);
+
+    if (dbError) {
+      console.log(dbError);
+      return;
+    }
+
+    setPfp(publicUrl);
   }
 
   useEffect(() => {
@@ -44,6 +72,9 @@ function Profile() {
           .eq('id', user.id)
         console.log(profile);
         setUsername(profile[0].username);
+        if (profile[0].pfp) {
+          setPfp(profile[0].pfp);
+        }
         const timestamp = profile[0].created_at;
         const formattedDate = new Intl.DateTimeFormat("en-GB", {
           month: "short",
@@ -175,20 +206,20 @@ sm:p-8
 
 
               <div className="flex flex-col items-center justify-center p-6  max-w-xs mx-auto shadow-sm">
-                <label htmlFor="pfp-file-input" className="group relative cursor-pointer overflow-hidden border
-border-violet-500/30 w-32 h-32 sm:w-40 sm:h-40 shadow-md ring-2 ring-indigo-500/20 transition-all hover:ring-indigo-500">
+                <label htmlFor="pfp-file-input" className="group relative cursor-pointer overflow-hidden
+border-violet-500/30 w-32 h-32 sm:w-40 sm:h-40 shadow-md ring-1 ring-black transition-all hover:ring-indigo-500">
                   <img
                     src={pfp}
                     alt="Profile Preview"
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                  {/* Dark Hover Overlay */}
+
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-200">
                     <span className="hidden sm:block text-white text-xs font-medium tracking-wide">Change Photo</span>
                   </div>
                 </label>
 
-                {/* Hidden File Input */}
+
                 <input
                   type="file"
                   id="pfp-file-input"
@@ -204,7 +235,11 @@ border-violet-500/30 w-32 h-32 sm:w-40 sm:h-40 shadow-md ring-2 ring-indigo-500/
 
 
             <div className="p-6 sm:p-8 flex flex-col justify-center text-center md:text-left">
-             
+
+              <p className="uppercase tracking-[0.25em] text-xs mb-4 text-zinc-500">
+                USERNAME
+              </p>
+
               <h2 className="text-3xl sm:text-5xl font-serif">
                 {username}
               </h2>
@@ -212,31 +247,31 @@ border-violet-500/30 w-32 h-32 sm:w-40 sm:h-40 shadow-md ring-2 ring-indigo-500/
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-10">
 
-  <div className="border border-zinc-800 bg-black/40 p-5">
+                <div className="border border-zinc-800 bg-black/40 p-5">
 
-    <p className="uppercase tracking-[0.25em] text-xs text-zinc-500">
-      Debates
-    </p>
+                  <p className="uppercase tracking-[0.25em] text-xs text-zinc-500">
+                    Debates
+                  </p>
 
-    <h3 className="text-3xl sm:text-4xl font-bold mt-4 text-violet-400">
-      {profileFinalInfo.debate_No}
-    </h3>
+                  <h3 className="text-3xl sm:text-4xl font-bold mt-4 text-violet-400">
+                    {profileFinalInfo.debate_No}
+                  </h3>
 
-  </div>
+                </div>
 
-  <div className="border border-zinc-800 bg-black/40 p-5">
+                <div className="border border-zinc-800 bg-black/40 p-5">
 
-    <p className="uppercase tracking-[0.25em] text-xs text-zinc-500">
-      Joined
-    </p>
+                  <p className="uppercase tracking-[0.25em] text-xs text-zinc-500">
+                    Joined
+                  </p>
 
-    <h3 className="text-lg sm:text-2xl font-semibold mt-5">
-      {doc}
-    </h3>
+                  <h3 className="text-lg sm:text-2xl font-semibold mt-5">
+                    {doc}
+                  </h3>
 
-  </div>
+                </div>
 
-</div>
+              </div>
             </div>
 
           </div>
@@ -272,7 +307,7 @@ transition-all
 duration-300">
 
               <p className="text-xs tracking-[0.3em] text-white/40 uppercase">
-               Best Performance
+                Best Performance
               </p>
 
               <h4 className="mt-10 uppercase text-lg sm:text-2xl font-semibold leading-relaxed min-h-[72px] sm:h-24">
