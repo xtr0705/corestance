@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import supabase from "../lib/supabase";
 import { useEffect, useState } from "react";
-import CountUp from "react-countup";
+
 
 function DebateReport() {
   const navigate = useNavigate();
@@ -156,10 +156,7 @@ overflow-hidden
             </h3>
 
             <p className="text-5xl font-bold">
-              <CountUp
-                end={report[0].persuasion_score}
-                duration={1.4}
-              />
+              {report[0].persuasion_score}                
             </p>
           </div>
 
@@ -189,10 +186,7 @@ overflow-hidden
             </h3>
 
             <p className="text-5xl font-bold">
-              <CountUp
-                end={report[0].logic_score}
-                duration={1.4}
-              />
+                {report[0].logic_score}
             </p>
           </div>
 
@@ -222,10 +216,7 @@ overflow-hidden
             </h3>
 
             <p className="text-5xl font-bold">
-              <CountUp
-                end={report[0].overall_score}
-                duration={1.4}
-              />
+              {report[0].overall_score}
             </p>
           </div>
 

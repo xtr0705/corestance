@@ -286,7 +286,10 @@ function Leaderboard() {
                         }
                   `}
                     >
-                      <td className="px-6 py-5 animate-glow text-amber-200 font-bold text-lg">
+                      <td className={`px-6 py-5 ${index === 0
+                          ? " animate-glow text-amber-200"
+                          : ""
+                        } font-bold text-lg`}>
                         {rank}
                       </td>
 

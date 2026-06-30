@@ -80,7 +80,7 @@ function Home() {
 
               <div className="flex  sm:flex-row gap-4 mt-10">
 
-                <Tap>
+                
                   <Link
                     to="/create-debate"
                     className="
@@ -89,7 +89,7 @@ function Home() {
         overflow-hidden
         bg-violet-500
         text-white
-        px-8
+        px-6
         py-4
         font-semibold
         transition-all
@@ -110,6 +110,7 @@ function Home() {
           via-white/20
           to-transparent
 
+
           -translate-x-full
           group-hover:translate-x-full
 
@@ -123,7 +124,7 @@ function Home() {
                     </span>
 
                   </Link>
-                </Tap>
+                
 
                 <a
                   href="#how-it-works"

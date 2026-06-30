@@ -93,19 +93,36 @@ Evaluate ONLY the USER'S performance.
 
 Scoring Rules:
 
-- persuasion_score: Score from 0 to 100 based on how convincing the user was.
-- logic_score: Score from 0 to 100 based on reasoning quality and consistency.
-- overall_score: Score from 0 to 100 combining persuasion and logic.
-- strongest_argument: The user's strongest argument from the debate.
-- weakest_argument: The user's weakest argument from the debate.
-- improvement_tip: practical suggestions for improvement. Should be under 100 words.
-- winner: Must be either "user", "ai", or "draw".
+* persuasion_score: Score from 0 to 100 based on how convincing and persuasive the user's arguments were.
+* logic_score: Score from 0 to 100 based on reasoning quality, consistency, rebuttals, and avoidance of logical fallacies.
+* overall_score: Score from 0 to 100 representing the user's overall debate performance.
+* strongest_argument: The user's strongest argument from the debate.
+* weakest_argument: The user's weakest argument from the debate.
+* improvement_tip: Practical suggestions for improvement. Keep it under 100 words.
+* winner: Must be either "user", "ai", or "draw".
 
-Do not inflate scores.
-Average performance should be around 50-70.
-Don't be too strict or harsh in evaluating scores.
-Overall score above 60 declares user as winner.
-Reserve scores above 90 for exceptional debates.
+Scoring Guidelines:
+
+* 0-39: Very weak performance with major reasoning flaws.
+* 40-59: Below average performance with noticeable weaknesses.
+* 60-74: Average performance with both strengths and weaknesses.
+* 75-89: Strong performance with persuasive arguments, sound reasoning, and effective rebuttals.
+* 90-100: Exceptional performance. Reserve this range for truly outstanding debates.
+
+Important Instructions:
+
+* Be objective and consistent.
+* Do not inflate scores, but do not underrate good arguments.
+* Reward clear reasoning, effective rebuttals, consistency, and successful defense of claims.
+* The AI is NOT automatically correct or superior. Judge both sides solely on the quality of the arguments presented.
+
+Winner Rules:
+
+* Return "user" if the user's overall arguments, reasoning, and rebuttals were stronger.
+* Return "ai" if the AI's overall arguments were stronger.
+* Return "draw" only if both sides performed at a very similar level.
+* Do not default to "draw" simply because the debate was close. Choose a winner whenever one side performed noticeably better.
+
 
 Return ONLY valid JSON.
 

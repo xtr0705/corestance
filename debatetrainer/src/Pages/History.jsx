@@ -2,12 +2,14 @@ import { useNavigate } from "react-router-dom";
 import supabase from "../lib/supabase";
 import { useEffect, useState } from "react";
 import Tap from "../Component/Tap";
-import CountUp from "react-countup";
+
+
 function DebateHistory() {
 
   const [history, setHistory] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchHistory = async () => {
@@ -225,11 +227,8 @@ sm:justify-between">
                       </p>
 
                       <p className="text-4xl font-bold">
-                        <CountUp
-                          end={report.overall_score}
-                          duration={1.4}
-                        />
-
+                      {report.overall_score} 
+                          
                       </p>
 
                     </div>
