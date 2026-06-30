@@ -70,22 +70,73 @@ justify-center
 
   return (
     <div
-      className="
+  className="
     min-h-screen
     bg-[#09090B]
     text-white
     relative
     overflow-hidden
   "
-    >
-      <div
-        className="
+>
+  <div
+    className="
       absolute
       inset-0
       bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.06),transparent_50%)]
       pointer-events-none
     "
-      />
+  />
+
+
+  <div className="relative border-b border-zinc-800 bg-[#09090B]/80 backdrop-blur-xl">
+    <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+
+      <h2 className="font-serif text-xl">
+        DebateArena
+      </h2>
+
+      <div className="flex gap-3">
+
+        <Tap>
+          <button
+            onClick={() => navigate("/")}
+            className="
+              border
+              border-zinc-800
+              px-5
+              py-2
+              hover:border-violet-500/30
+              hover:bg-zinc-900
+              transition-all
+              duration-300
+            "
+          >
+            Home
+          </button>
+        </Tap>
+
+        <Tap>
+          <button
+            onClick={() => navigate("/leaderboard")}
+            className="
+              bg-violet-500
+              text-white
+              px-5
+              py-2
+              hover:bg-violet-400
+              hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+              transition-all
+              duration-300
+            "
+          >
+            Leaderboard
+          </button>
+        </Tap>
+
+      </div>
+
+    </div>
+  </div>
 
       <div className="relative p-6">
 

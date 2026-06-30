@@ -191,26 +191,75 @@ function Leaderboard() {
   } else {
 
     return (
-      <div className="min-h-screen bg-black text-white px-4 py-10">
-        <div className="max-w-6xl mx-auto">
+      <div className="min-h-screen bg-black text-white  ">
+        <div className="relative border-b border-zinc-800 mb-5 bg-[#09090B]/80 backdrop-blur-xl">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
 
-          <div className="mb-10">
-            <h1 className="text-4xl md:text-5xl font-bold text-center">
+            <h2 className="font-serif text-lg sm:text-xl">
               Leaderboard
-            </h1>
+            </h2>
 
-            <p className="text-center text-slate-400 mt-3">
-              Logic. Persuasion. Consistency. Ranked.
-            </p>
+            <div className="flex w-full sm:w-auto items-center justify-center gap-3">
+
+              <Tap>
+                <button
+                  onClick={() => navigate("/")}
+                  className="
+            border
+            border-zinc-800
+            px-5
+            py-2
+
+            flex-1 sm:flex-none
+            hover:border-violet-500/30
+            hover:bg-zinc-900
+
+            transition-all
+            duration-300
+          "
+                >
+                  Home
+                </button>
+              </Tap>
+
+              <Tap>
+                <button
+                  onClick={() => navigate("/history")}
+                  className="
+            bg-violet-500
+            text-white
+            flex-1 sm:flex-none
+
+            px-5
+            py-2
+
+            hover:bg-violet-400
+            hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+
+            transition-all
+            duration-300
+          "
+                >
+                  History
+                </button>
+              </Tap>
+
+            </div>
+
           </div>
+        </div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
+
+
+    
 
           <div className="max-w-5xl mx-auto mb-12 text-center">
 
-            <h1 className="text-2xl font-heading md:text-5xl font-serif text-amber-400">
+            <h1 className="text-3xl sm:text-4xl font-heading md:text-5xl font-serif text-amber-400">
               Hall of Debaters
             </h1>
 
-            <p className="mt-5 text-slate-300 font-semibold text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-5 text-slate-300 font-semibold text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
               The arena remembers every argument.
               Rise through the ranks by mastering logic,
               persuasion, and consistency.
@@ -226,7 +275,7 @@ function Leaderboard() {
           bg-zinc-950
         "
           >
-            <table className="w-full">
+            <table className="min-w-[700px] w-full">
               <thead>
                 <tr
                   className="
@@ -273,6 +322,7 @@ function Leaderboard() {
                           : `#${index + 1}`;
 
                   return (
+
                     <tr
                       key={user.username}
                       className={`
@@ -287,8 +337,8 @@ function Leaderboard() {
                   `}
                     >
                       <td className={`px-6 py-5 ${index === 0
-                          ? " animate-glow text-amber-200"
-                          : ""
+                        ? " animate-glow text-amber-200"
+                        : ""
                         } font-bold text-lg`}>
                         {rank}
                       </td>
@@ -332,19 +382,19 @@ function Leaderboard() {
     p-5
   "
           >
-            <div className="flex items-center justify-between flex-wrap gap-4">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
 
               <div>
                 <p className="text-slate-400 text-sm">
                   Your Ranking
                 </p>
 
-                <h2 className="text-3xl font-bold text-violet-400">
-                 {myRank}
+                <h2 className="text-4xl sm:text-3xl font-bold text-violet-400">
+                  {myRank}
                 </h2>
               </div>
 
-              <div className="flex gap-8 flex-wrap">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
 
                 <div>
                   <p className="text-slate-500 text-sm">
@@ -390,36 +440,7 @@ function Leaderboard() {
 
             </div>
           </div>
-          <Tap>
-            <button
-              onClick={
-                () => navigate('/')
-              }
-              className="
 
-  group
-  relative
-  overflow-hidden
-
-  bg-violet-500
-  text-white
-
-  px-8
-  py-4
-
-  font-semibold
-
-  transition-all
-  duration-300
-
-  hover:bg-violet-400
-  hover:-translate-y-0.5
-  hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
-  "
-            >
-              Home
-            </button>
-          </Tap>
 
           {leaderboard.length === 0 && (
             <div className="text-center mt-12">
