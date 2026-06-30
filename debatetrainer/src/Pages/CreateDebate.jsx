@@ -2,6 +2,7 @@ import { useState } from "react";
 import supabase from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 import { Listbox } from "@headlessui/react";
+import Tap from "../Component/Tap";
 
 function CreateDebate() {
   const [debateTopic, setDebateTopic] = useState("");
@@ -47,81 +48,81 @@ function CreateDebate() {
     }
   }
 
- const debateModes = [
-  {
-    value: "professional",
-    label: "Professional Debater",
-  },
-  {
-    value: "aggressive",
-    label: "Aggressive Responder",
-  },
-  {
-    value: "job-interview",
-    label: "Job Interviewer",
-  },
-  {
-    value: "lawyer",
-    label: "Lawyer",
-  },
-  {
-    value: "philosopher",
-    label: "Philosopher",
-  },
-  {
-    value: "twitter-troll",
-    label: "Twitter Troll",
-  },
-  {
-    value: "devils-advocate",
-    label: "Devil's Advocate",
-  },
-];
-const durations = [
-  {
-    value: 5,
-    label: "5 Minutes",
-  },
-  {
-    value: 10,
-    label: "10 Minutes",
-  },
-  {
-    value: 15,
-    label: "15 Minutes",
-  },
-];
+  const debateModes = [
+    {
+      value: "professional",
+      label: "Professional Debater",
+    },
+    {
+      value: "aggressive",
+      label: "Aggressive Responder",
+    },
+    {
+      value: "job-interview",
+      label: "Job Interviewer",
+    },
+    {
+      value: "lawyer",
+      label: "Lawyer",
+    },
+    {
+      value: "philosopher",
+      label: "Philosopher",
+    },
+    {
+      value: "twitter-troll",
+      label: "Twitter Troll",
+    },
+    {
+      value: "devils-advocate",
+      label: "Devil's Advocate",
+    },
+  ];
+  const durations = [
+    {
+      value: 5,
+      label: "5 Minutes",
+    },
+    {
+      value: 10,
+      label: "10 Minutes",
+    },
+    {
+      value: 15,
+      label: "15 Minutes",
+    },
+  ];
 
 
   if (loading) {
     return (
       <div className="min-h-screen bg-[#09090B] flex items-center justify-center">
 
-  <div className="text-center">
+        <div className="text-center">
 
-    <div className="flex justify-center gap-2 mb-4">
+          <div className="flex justify-center gap-2 mb-4">
 
-      <div className="w-2 h-2 rounded-full bg-violet-400 animate-bounce" />
+            <div className="w-2 h-2 rounded-full bg-violet-400 animate-bounce" />
 
-      <div
-        className="w-2 h-2 rounded-full bg-violet-400 animate-bounce"
-        style={{ animationDelay: "150ms" }}
-      />
+            <div
+              className="w-2 h-2 rounded-full bg-violet-400 animate-bounce"
+              style={{ animationDelay: "150ms" }}
+            />
 
-      <div
-        className="w-2 h-2 rounded-full bg-violet-400 animate-bounce"
-        style={{ animationDelay: "300ms" }}
-      />
+            <div
+              className="w-2 h-2 rounded-full bg-violet-400 animate-bounce"
+              style={{ animationDelay: "300ms" }}
+            />
 
-    </div>
+          </div>
 
-    <p className="text-zinc-400">
-      Creating Debate...
-    </p>
+          <p className="text-zinc-400">
+            Creating Debate...
+          </p>
 
-  </div>
+        </div>
 
-</div>
+      </div>
     );
   } else {
 
@@ -129,43 +130,43 @@ const durations = [
       <>
         <div className="min-h-screen bg-[#09090B] text-white relative overflow-hidden">
 
-  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.12),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.12),transparent_50%)]" />
 
-  <div className="relative flex items-center justify-center min-h-screen px-6">
+          <div className="relative flex items-center justify-center min-h-screen px-6">
 
-          <div className="w-full max-w-2xl">
+            <div className="w-full max-w-2xl">
 
 
-            <div className="mb-10 text-center">
+              <div className="mb-10 text-center">
 
-              <p className="text-slate-500 uppercase tracking-widest mb-4">
-                DebateArena
-              </p>
+                <p className="text-slate-500 uppercase tracking-widest mb-4">
+                  DebateArena
+                </p>
 
-<h1 className="text-4xl md:text-5xl font-serif tracking-tight mb-4">                Create A New Debate
-              </h1>
+                <h1 className="text-4xl md:text-5xl font-serif tracking-tight mb-4">                Create A New Debate
+                </h1>
 
-              <p className="text-slate-400 text-lg">
-                Choose a topic, select an opponent,
-                and put your arguments to the test.
-              </p>
+                <p className="text-slate-400 text-lg">
+                  Choose a topic, select an opponent,
+                  and put your arguments to the test.
+                </p>
 
-              <div className="flex justify-center gap-3 mt-6">
+                <div className="flex justify-center gap-3 mt-6">
 
-  <div className="w-2 h-2 rounded-full bg-blue-400" />
-  <div className="w-2 h-2 rounded-full bg-emerald-400" />
-  <div className="w-2 h-2 rounded-full bg-red-400" />
-  <div className="w-2 h-2 rounded-full bg-violet-400" />
-  <div className="w-2 h-2 rounded-full bg-amber-400" />
-  <div className="w-2 h-2 rounded-full bg-cyan-400" />
-  <div className="w-2 h-2 rounded-full bg-orange-400" />
+                  <div className="w-2 h-2 rounded-full bg-blue-400" />
+                  <div className="w-2 h-2 rounded-full bg-emerald-400" />
+                  <div className="w-2 h-2 rounded-full bg-red-400" />
+                  <div className="w-2 h-2 rounded-full bg-violet-400" />
+                  <div className="w-2 h-2 rounded-full bg-amber-400" />
+                  <div className="w-2 h-2 rounded-full bg-cyan-400" />
+                  <div className="w-2 h-2 rounded-full bg-orange-400" />
 
-</div>
+                </div>
 
-            </div>
+              </div>
 
-<div
-  className="
+              <div
+                className="
     relative
     overflow-hidden
 
@@ -180,16 +181,16 @@ const durations = [
 
     shadow-[0_0_40px_rgba(139,92,246,0.05)]
   "
->
-              <div className="mb-6">
+              >
+                <div className="mb-6">
 
-                <label className="block text-sm font-medium text-slate-300 mb-3">
-                  Debate Topic
-                </label>
+                  <label className="block text-sm font-medium text-slate-300 mb-3">
+                    Debate Topic
+                  </label>
 
-                <input
-                  placeholder="e.g. College is overrated"
-                  className="
+                  <input
+                    placeholder="e.g. College is overrated"
+                    className="
         w-full
         bg-black/50
         border border-zinc-800
@@ -201,23 +202,23 @@ const durations = [
         focus:border-violet-500
         transition
       "
-                  value={debateTopic}
-                  onChange={(e) => setDebateTopic(e.target.value)}
-                />
+                    value={debateTopic}
+                    onChange={(e) => setDebateTopic(e.target.value)}
+                  />
 
-              </div>
+                </div>
 
-              <div className="mb-6">
+                <div className="mb-6">
 
-                <label className="block text-sm font-medium text-slate-300 mb-3">
-                  Opponent Style
-                </label>
+                  <label className="block text-sm font-medium text-slate-300 mb-3">
+                    Opponent Style
+                  </label>
 
-                <Listbox value={debateMode} onChange={setDebateMode}>
-  <div className="relative">
+                  <Listbox value={debateMode} onChange={setDebateMode}>
+                    <div className="relative">
 
-    <Listbox.Button
-      className="
+                      <Listbox.Button
+                        className="
         w-full
         bg-black/50
         focus:outline-none
@@ -232,16 +233,16 @@ const durations = [
         transition-all
         duration-300
       "
-    >
-      {debateMode
-        ? debateModes.find(
-            (mode) => mode.value === debateMode
-          )?.label
-        : "Select Debate Mode"}
-    </Listbox.Button>
+                      >
+                        {debateMode
+                          ? debateModes.find(
+                            (mode) => mode.value === debateMode
+                          )?.label
+                          : "Select Debate Mode"}
+                      </Listbox.Button>
 
-    <Listbox.Options
-  className="
+                      <Listbox.Options
+                        className="
     absolute
     z-50
     mt-2
@@ -261,15 +262,15 @@ const durations = [
 
     shadow-2xl
   "
->
-      {debateModes.map((mode) => (
-        <Listbox.Option
-          key={mode.value}
-          value={mode.value}
-        >
-          {({ active, selected }) => (
-            <div
-  className={`
+                      >
+                        {debateModes.map((mode) => (
+                          <Listbox.Option
+                            key={mode.value}
+                            value={mode.value}
+                          >
+                            {({ active, selected }) => (
+                              <div
+                                className={`
     px-4
     py-4
 
@@ -278,50 +279,48 @@ const durations = [
     transition-all
     duration-200
 
-    ${
-      active
-        ? "bg-violet-500/10 text-violet-200"
-        : ""
-    }
+    ${active
+                                    ? "bg-violet-500/10 text-violet-200"
+                                    : ""
+                                  }
 
-    ${
-      selected
-        ? "text-violet-300"
-        : "text-white"
-    }
+    ${selected
+                                    ? "text-violet-300"
+                                    : "text-white"
+                                  }
   `}
->
-  {mode.label}
-</div>
-          )}
-        </Listbox.Option>
-      ))}
-    </Listbox.Options>
+                              >
+                                {mode.label}
+                              </div>
+                            )}
+                          </Listbox.Option>
+                        ))}
+                      </Listbox.Options>
 
-  </div>
-</Listbox>
+                    </div>
+                  </Listbox>
 
-              </div>
+                </div>
 
-              
 
-  
 
- <div className="mb-8">
 
-  <label className="block text-sm font-medium text-slate-300 mb-3">
-    Debate Duration
-  </label>
 
-  <div className="relative">
+                <div className="mb-8">
 
-    <Listbox
-      value={debateDuration}
-      onChange={setDebateDuration}
-    >
+                  <label className="block text-sm font-medium text-slate-300 mb-3">
+                    Debate Duration
+                  </label>
 
-      <Listbox.Button
-  className="
+                  <div className="relative">
+
+                    <Listbox
+                      value={debateDuration}
+                      onChange={setDebateDuration}
+                    >
+
+                      <Listbox.Button
+                        className="
     w-full
     bg-black/50
     border
@@ -339,17 +338,17 @@ const durations = [
     transition-all
     duration-300
   "
->
-        {
-          durations.find(
-            (duration) =>
-              duration.value === debateDuration
-          )?.label
-        }
-      </Listbox.Button>
+                      >
+                        {
+                          durations.find(
+                            (duration) =>
+                              duration.value === debateDuration
+                          )?.label
+                        }
+                      </Listbox.Button>
 
-      <Listbox.Options
-  className="
+                      <Listbox.Options
+                        className="
     absolute
     left-0
     top-full
@@ -371,18 +370,18 @@ const durations = [
 
     overflow-hidden
   "
->
+                      >
 
-        {durations.map((duration) => (
+                        {durations.map((duration) => (
 
-          <Listbox.Option
-            key={duration.value}
-            value={duration.value}
-          >
-            {({ active, selected }) => (
+                          <Listbox.Option
+                            key={duration.value}
+                            value={duration.value}
+                          >
+                            {({ active, selected }) => (
 
-              <div
-  className={`
+                              <div
+                                className={`
     px-4
     py-4
 
@@ -391,97 +390,97 @@ const durations = [
     transition-all
     duration-200
 
-    ${
-      active
-        ? "bg-violet-500/10 text-violet-200"
-        : ""
-    }
+    ${active
+                                    ? "bg-violet-500/10 text-violet-200"
+                                    : ""
+                                  }
 
-    ${
-      selected
-        ? "text-violet-300"
-        : "text-white"
-    }
+    ${selected
+                                    ? "text-violet-300"
+                                    : "text-white"
+                                  }
   `}
->
-  {duration.label}
-</div>
+                              >
+                                {duration.label}
+                              </div>
 
-            )}
-          </Listbox.Option>
+                            )}
+                          </Listbox.Option>
 
-        ))}
+                        ))}
 
-      </Listbox.Options>
+                      </Listbox.Options>
 
-    </Listbox>
+                    </Listbox>
 
-  </div>
+                  </div>
 
-</div>
+                </div>
 
-</div>
+              </div>
 
               <div className="flex gap-4">
 
-                <button
-  onClick={createDebate}
-  className="
-    group
-    relative
-    overflow-hidden
+                <Tap>
+                  <button
+                    onClick={createDebate}
+                    className="
+      group
+      relative
+      overflow-hidden
 
-    w-full
+      w-full
 
-    bg-violet-500
-    text-white
+      bg-violet-500
+      text-white
 
-    py-4
-    mt-8
+      py-4
+      mt-8
 
-    font-semibold
-
-    transition-all
-    duration-300
-
-    hover:bg-violet-400
-    hover:-translate-y-0.5
-    hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
-  "
->
-
-  <span
-    className="
-      absolute
-      top-0
-      left-[-150%]
-      h-full
-      w-[50%]
-
-      bg-gradient-to-r
-      from-transparent
-      via-white/20
-      to-transparent
-
-      skew-x-12
-
-      group-hover:left-[150%]
+      font-semibold
 
       transition-all
-      duration-700
+      duration-300
+
+      hover:bg-violet-400
+      hover:-translate-y-0.5
+      hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
     "
-  />
+                  >
 
-  <span className="relative">
-    Start Debate
-  </span>
+                    <span
+                      className="
+        absolute
+        top-0
+        left-[-150%]
+        h-full
+        w-[50%]
 
-</button>
+        bg-gradient-to-r
+        from-transparent
+        via-white/20
+        to-transparent
+
+        skew-x-12
+
+        group-hover:left-[150%]
+
+        transition-all
+        duration-700
+      "
+                    />
+
+                    <span className="relative">
+                      Start Debate
+                    </span>
+
+                  </button>
+                </Tap>
               </div>
             </div>
           </div>
-          </div>
-        
+        </div>
+
       </>
     );
   }

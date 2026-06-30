@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {motion} from "framer-motion";
 import { getAIResponse } from '../lib/gemini.js';
+import Tap from '../Component/Tap.jsx';
 
 function ChatDebate() {
   const [debateinfo, setDebateInfo] = useState(null);
@@ -26,6 +27,7 @@ function ChatDebate() {
 const [loadingText, setLoadingText] = useState(
   loadingMessages[0]
 );
+// const[debateTimer,setDebateTimer]=useState(0);
 
 
   useEffect(() => {
@@ -244,6 +246,10 @@ Example format:
     }
   }
 
+  // const timer = async ()=>{
+  //   const {data,error} = await supabase.from('debates').
+  // }
+
 
 
 
@@ -424,21 +430,23 @@ backdrop-blur-xl backdrop-blur sticky top-0 z-10">
 
           </div>
 
-          <button
-            onClick={() => setShowEndModal(true)}
-            className="
-          bg-red-500/10
-          border
-          border-red-500/30
-          text-red-400
-          px-5
-          py-2
-          hover:bg-red-500/20
-          transition
-        "
-          >
-            End Debate
-          </button>
+          <Tap>
+            <button
+              onClick={() => setShowEndModal(true)}
+              className="
+            bg-red-500/10
+            border
+            border-red-500/30
+            text-red-400
+            px-5
+            py-2
+            hover:bg-red-500/20
+            transition
+          "
+            >
+              End Debate
+            </button>
+          </Tap>
 
         </div>
 
@@ -593,23 +601,25 @@ ${theme.border}
 `}
           />
 
-          <button
-            disabled={aiIsThinking}
-            onClick={sendMessage}
-            className="
-          bg-violet-500
-          text-white
-          
-          w-[80px]
-          font-semibold
-          hover:bg-violet-400
-          hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
-          transition
-          disabled:opacity-50
-        "
-          >
-            Send
-          </button>
+          <Tap>
+            <button
+              disabled={aiIsThinking}
+              onClick={sendMessage}
+              className="
+            bg-violet-500
+            text-white
+            
+            w-[80px]
+            font-semibold
+            hover:bg-violet-400
+            hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+            transition
+            disabled:opacity-50
+          "
+            >
+              Send
+            </button>
+          </Tap>
 
         </div>
 
@@ -764,7 +774,8 @@ ${theme.border}
 
       <div className="flex gap-3">
 
-        <button
+        <Tap>
+          <button
           onClick={() => setShowEndModal(false)}
           className="
             flex-1
@@ -782,30 +793,33 @@ ${theme.border}
           "
         >
           Continue Debate
-        </button>
+          </button>
+        </Tap>
 
-        <button
-          onClick={async () => {
-  setShowEndModal(false);
-  await confirmEndDebate();
-}}
-          className="
-            flex-1
+        <Tap>
+          <button
+            onClick={async () => {
+    setShowEndModal(false);
+    await confirmEndDebate();
+  }}
+            className="
+              flex-1
 
-            bg-red-500
-            text-white
+              bg-red-500
+              text-white
 
-            py-3
+              py-3
 
-            hover:bg-red-400
-            hover:shadow-[0_0_20px_rgba(239,68,68,0.25)]
+              hover:bg-red-400
+              hover:shadow-[0_0_20px_rgba(239,68,68,0.25)]
 
-            transition-all
-            duration-300
-          "
-        >
-          End Debate
-        </button>
+              transition-all
+              duration-300
+            "
+          >
+            End Debate
+          </button>
+        </Tap>
 
       </div>
 

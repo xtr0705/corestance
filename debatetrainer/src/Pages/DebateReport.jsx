@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import supabase from "../lib/supabase";
 import { useEffect, useState } from "react";
+import CountUp from "react-countup";
 
 function DebateReport() {
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ function DebateReport() {
   }, [debateId])
 
 
-  if (!report|| report.length===0) {
+  if (!report || report.length === 0) {
     return (
       <div className="
 min-h-screen
@@ -155,7 +156,10 @@ overflow-hidden
             </h3>
 
             <p className="text-5xl font-bold">
-              {report[0].persuasion_score}
+              <CountUp
+                end={report[0].persuasion_score}
+                duration={1.4}
+              />
             </p>
           </div>
 
@@ -185,7 +189,10 @@ overflow-hidden
             </h3>
 
             <p className="text-5xl font-bold">
-              {report[0].logic_score}
+              <CountUp
+                end={report[0].logic_score}
+                duration={1.4}
+              />
             </p>
           </div>
 
@@ -215,7 +222,10 @@ overflow-hidden
             </h3>
 
             <p className="text-5xl font-bold">
-              {report[0].overall_score}
+              <CountUp
+                end={report[0].overall_score}
+                duration={1.4}
+              />
             </p>
           </div>
 
@@ -318,7 +328,7 @@ overflow-hidden
 
             <button
               onClick={
-                ()=>navigate('/')
+                () => navigate('/')
               }
               className="
 
@@ -344,6 +354,7 @@ hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
             >
               Home
             </button>
+
             <button className="
 border
 border-zinc-800

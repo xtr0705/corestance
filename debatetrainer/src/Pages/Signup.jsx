@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import supabase from "../lib/supabase";
 import { useNavigate, Link } from "react-router-dom";
+import Tap from "../Component/Tap";
 
 function Signup() {
   const navigate = useNavigate();
@@ -274,62 +275,64 @@ function Signup() {
 
               </div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="
-                  group
-                  relative
-                  overflow-hidden
-
-                  w-full
-
-                  bg-violet-500
-                  text-white
-
-                  py-4
-
-                  font-semibold
-
-                  transition-all
-                  duration-300
-
-                  hover:bg-violet-400
-                  hover:-translate-y-0.5
-                  hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
-
-                  disabled:opacity-50
-                "
-              >
-                <span
+              <Tap>
+                <button
+                  type="submit"
+                  disabled={loading}
                   className="
-                    absolute
-                    top-0
-                    left-[-150%]
-                    h-full
-                    w-[50%]
+                    group
+                    relative
+                    overflow-hidden
 
-                    bg-gradient-to-r
-                    from-transparent
-                    via-white/20
-                    to-transparent
+                    w-full
 
-                    skew-x-12
+                    bg-violet-500
+                    text-white
 
-                    group-hover:left-[150%]
+                    py-4
+
+                    font-semibold
 
                     transition-all
-                    duration-700
+                    duration-300
+
+                    hover:bg-violet-400
+                    hover:-translate-y-0.5
+                    hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
+
+                    disabled:opacity-50
                   "
-                />
+                >
+                  <span
+                    className="
+                      absolute
+                      top-0
+                      left-[-150%]
+                      h-full
+                      w-[50%]
 
-                <span className="relative">
-                  {loading
-                    ? "Creating Account..."
-                    : "Create Account"}
-                </span>
+                      bg-gradient-to-r
+                      from-transparent
+                      via-white/20
+                      to-transparent
 
-              </button>
+                      skew-x-12
+
+                      group-hover:left-[150%]
+
+                      transition-all
+                      duration-700
+                    "
+                  />
+
+                  <span className="relative">
+                    {loading
+                      ? "Creating Account..."
+                      : "Create Account"}
+                  </span>
+
+                </button>
+              </Tap>
 
             </form>
 
@@ -337,16 +340,18 @@ function Signup() {
 
               Already have an account?{" "}
 
-              <Link
-                to="/login"
-                className="
-                  text-violet-400
-                  hover:text-violet-300
-                  transition
-                "
-              >
-                Login
-              </Link>
+              <Tap>
+                <Link
+                  to="/login"
+                  className="
+                    text-violet-400
+                    hover:text-violet-300
+                    transition
+                  "
+                >
+                  Login
+                </Link>
+              </Tap>
 
             </p>
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import supabase from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 import CursorGlow from "../Component/CursorGlow";
+import Tap from "../Component/Tap";
 
 function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -136,7 +137,7 @@ function Leaderboard() {
 
   const userFinalData = userData[0];
 
-  useEffect(()=>{
+  useEffect(() => {
     const setUserRank = async () => {
       const { data: { user } } = await supabase.auth.getUser();
       const id = user?.id;
@@ -146,11 +147,11 @@ function Leaderboard() {
         }
       })
     }
-    if (leaderboard.length>0) {
-      
+    if (leaderboard.length > 0) {
+
       setUserRank();
     }
-  },[leaderboard])
+  }, [leaderboard])
 
   if (loading) {
     return (
@@ -171,7 +172,7 @@ function Leaderboard() {
               
               animate-spin
               "
-              />
+            />
 
           </div>
 
@@ -336,7 +337,7 @@ function Leaderboard() {
                 </p>
 
                 <h2 className="text-3xl font-bold text-violet-400">
-                  {myRank}
+                 {myRank}
                 </h2>
               </div>
 
@@ -386,35 +387,36 @@ function Leaderboard() {
 
             </div>
           </div>
-
-          <button
+          <Tap>
+            <button
               onClick={
-                ()=>navigate('/')
+                () => navigate('/')
               }
               className="
 
-group
-relative
-overflow-hidden
+  group
+  relative
+  overflow-hidden
 
-bg-violet-500
-text-white
+  bg-violet-500
+  text-white
 
-px-8
-py-4
+  px-8
+  py-4
 
-font-semibold
+  font-semibold
 
-transition-all
-duration-300
+  transition-all
+  duration-300
 
-hover:bg-violet-400
-hover:-translate-y-0.5
-hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
-"
+  hover:bg-violet-400
+  hover:-translate-y-0.5
+  hover:shadow-[0_0_25px_rgba(139,92,246,0.25)]
+  "
             >
               Home
             </button>
+          </Tap>
 
           {leaderboard.length === 0 && (
             <div className="text-center mt-12">
