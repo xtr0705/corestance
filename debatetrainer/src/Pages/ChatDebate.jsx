@@ -1,7 +1,7 @@
 import supabase from '../lib/supabase.js';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
 import { getAIResponse } from '../lib/gemini.js';
 import Tap from '../Component/Tap.jsx';
 
@@ -16,18 +16,19 @@ function ChatDebate() {
   const [showEndModal, setShowEndModal] = useState(false);
   const [isGeneratingReport, setIsGeneratingReport] = useState(false);
   const loadingMessages = [
-  "Analyzing debate transcript...",
-  "Evaluating reasoning quality...",
-  "Measuring persuasion strength...",
-  "Identifying strongest arguments...",
-  "Generating improvement feedback...",
-  "Finalizing report..."
-];
+    "Analyzing debate transcript...",
+    "Evaluating reasoning quality...",
+    "Measuring persuasion strength...",
+    "Identifying strongest arguments...",
+    "Generating improvement feedback...",
+    "Finalizing report..."
+  ];
+  const [timeLeft, setTimeLeft] = useState(0);
 
-const [loadingText, setLoadingText] = useState(
-  loadingMessages[0]
-);
-// const[debateTimer,setDebateTimer]=useState(0);
+  const [loadingText, setLoadingText] = useState(
+    loadingMessages[0]
+  );
+  // const[debateTimer,setDebateTimer]=useState(0);
 
 
   useEffect(() => {
@@ -36,7 +37,7 @@ const [loadingText, setLoadingText] = useState(
     });
   }, [messages])
 
-  const confirmEndDebate = async ()=>{
+  const confirmEndDebate = async () => {
     setIsGeneratingReport(true);
 
     const { error } = await supabase
@@ -46,7 +47,7 @@ const [loadingText, setLoadingText] = useState(
         status: "Finished",
       })
       .eq("id", debateId);
-  
+
     if (error) {
       console.log(error);
       setIsGeneratingReport(false);
@@ -142,9 +143,9 @@ Example format:
       if (!reportText) {
         alert(
           "AI is currently busy. Please try again in a few moments."
-        );    
+        );
 
-        
+
         return false;
       }
 
@@ -158,21 +159,21 @@ Example format:
       console.log("PARSED REPORT:", report);
 
       try {
-        const {data:userData} = await supabase.auth.getUser();
+        const { data: userData } = await supabase.auth.getUser();
         const { error } = await supabase
           .from('debate_reports')
           .insert({
-          debate_id: debateId,
-          persuasion_score: report.persuasion_score,
-          logic_score: report.logic_score,
-          strongest_argument: report.strongest_argument,
-          weakest_argument: report.weakest_argument,
-          improvement_tip: report.improvement_tip,
-          overall_score: report.overall_score,
-          winner: report.winner,
-          topic:debateinfo.topic,
-          user_id:userData.user.id
-        })
+            debate_id: debateId,
+            persuasion_score: report.persuasion_score,
+            logic_score: report.logic_score,
+            strongest_argument: report.strongest_argument,
+            weakest_argument: report.weakest_argument,
+            improvement_tip: report.improvement_tip,
+            overall_score: report.overall_score,
+            winner: report.winner,
+            topic: debateinfo.topic,
+            user_id: userData.user.id
+          })
           .select('*')
           .single()
 
@@ -263,9 +264,7 @@ Example format:
     }
   }
 
-  // const timer = async ()=>{
-  //   const {data,error} = await supabase.from('debates').
-  // }
+
 
 
 
@@ -296,6 +295,35 @@ Example format:
   }, [debateId]);
 
   useEffect(() => {
+    if (!debateinfo) return;
+
+    setTimeLeft(debateinfo.duration * 60);
+  }, [debateinfo])
+
+  useEffect(() => {
+    if (timeLeft <= 0) return;
+
+    const interval = setInterval(() => {
+      setTimeLeft(prev => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timeLeft])
+
+  useEffect(() => {
+    if (timeLeft === 0 && debateinfo) {
+      confirmEndDebate();
+    }
+  }, [timeLeft, debateinfo]);
+
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+
+  const formattedTime =
+    `${minutes}:${seconds.toString().padStart(2, "0")}`;
+
+
+  useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
         setShowEndModal(true);
@@ -313,97 +341,100 @@ Example format:
   }, []);
 
   useEffect(() => {
-  if (!isGeneratingReport) return;
+    if (!isGeneratingReport) return;
 
-  let index = 0;
+    let index = 0;
 
-  const interval = setInterval(() => {
-    index = (index + 1) % loadingMessages.length;
+    const interval = setInterval(() => {
+      index = (index + 1) % loadingMessages.length;
 
-    setLoadingText(
-      loadingMessages[index]
-    );
-  }, 2000);
+      setLoadingText(
+        loadingMessages[index]
+      );
+    }, 2000);
 
-  return () => clearInterval(interval);
+    return () => clearInterval(interval);
 
-}, [isGeneratingReport]);
+  }, [isGeneratingReport]);
+
+
 
   const modeNames = {
-  professional: "Professional Debater",
-  aggressive: "Aggressive Challenger",
-  lawyer: "Lawyer",
-  philosopher: "Philosopher",
-  "twitter-troll": "Twitter Troll",
-  "devils-advocate": "Devil's Advocate",
-  "job-interview": "Job Interviewer",
-};
+    professional: "Professional Debater",
+    aggressive: "Aggressive Challenger",
+    lawyer: "Lawyer",
+    philosopher: "Philosopher",
+    "twitter-troll": "Twitter Troll",
+    "devils-advocate": "Devil's Advocate",
+    "job-interview": "Job Interviewer",
+  };
 
   const modeColors = {
-  professional: {
-    bgGlow: "rgba(59,130,246,0.12)",
-    border: "border-blue-500/30",
-    accent: "text-blue-400"
-  },
+    professional: {
+      bgGlow: "rgba(59,130,246,0.12)",
+      border: "border-blue-500/30",
+      accent: "text-blue-400"
+    },
 
-  lawyer: {
-    bgGlow: "rgba(16,185,129,0.12)",
-    border: "border-emerald-500/30",
-    accent: "text-emerald-400"
-  },
+    lawyer: {
+      bgGlow: "rgba(16,185,129,0.12)",
+      border: "border-emerald-500/30",
+      accent: "text-emerald-400"
+    },
 
-  philosopher: {
-    bgGlow: "rgba(139,92,246,0.12)",
-    border: "border-violet-500/30",
-    accent: "text-violet-400"
-  },
+    philosopher: {
+      bgGlow: "rgba(139,92,246,0.12)",
+      border: "border-violet-500/30",
+      accent: "text-violet-400"
+    },
 
-  aggressive: {
-    bgGlow: "rgba(239,68,68,0.12)",
-    border: "border-red-500/30",
-    accent: "text-red-400"
-  },
+    aggressive: {
+      bgGlow: "rgba(239,68,68,0.12)",
+      border: "border-red-500/30",
+      accent: "text-red-400"
+    },
 
-  "twitter-troll": {
-    bgGlow: "rgba(249,115,22,0.12)",
-    border: "border-orange-500/30",
-    accent: "text-orange-400"
-  },
+    "twitter-troll": {
+      bgGlow: "rgba(249,115,22,0.12)",
+      border: "border-orange-500/30",
+      accent: "text-orange-400"
+    },
 
-  "devils-advocate": {
-    bgGlow: "rgba(245,158,11,0.12)",
-    border: "border-amber-500/30",
-    accent: "text-amber-400"
-  },
+    "devils-advocate": {
+      bgGlow: "rgba(245,158,11,0.12)",
+      border: "border-amber-500/30",
+      accent: "text-amber-400"
+    },
 
-  "job-interview": {
-    bgGlow: "rgba(6,182,212,0.12)",
-    border: "border-cyan-500/30",
-    accent: "text-cyan-400"
-  }
-};
+    "job-interview": {
+      bgGlow: "rgba(6,182,212,0.12)",
+      border: "border-cyan-500/30",
+      accent: "text-cyan-400"
+    }
+  };
 
-  const theme =
-    modeColors[debateinfo?.mode] ||
-    modeColors.professional;
+  const theme = modeColors[debateinfo?.mode] || modeColors.professional;
 
-    
+
+
+
+
 
   return (
     <motion.div
-  initial={{
-    opacity: 0,
-    y: 20
-  }}
-  animate={{
-    opacity: 1,
-    y: 0
-  }}
-  transition={{
-    duration: 0.4
-  }}
-    
-    className="
+      initial={{
+        opacity: 0,
+        y: 20
+      }}
+      animate={{
+        opacity: 1,
+        y: 0
+      }}
+      transition={{
+        duration: 0.4
+      }}
+
+      className="
 min-h-screen
 bg-[#09090B]
 text-white
@@ -413,15 +444,15 @@ relative
 
 ">
       <div
-  className="absolute inset-0 pointer-events-none"
-  style={{
-    background: `radial-gradient(
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `radial-gradient(
       circle at top,
       ${theme.bgGlow},
       transparent 50%
     )`
-  }}
-/>
+        }}
+      />
 
       <div className="border-b bg-[#09090B]/80
 border-zinc-800
@@ -432,20 +463,37 @@ backdrop-blur-xl backdrop-blur sticky top-0 z-10">
           <div>
 
             <h1 className="text-xl md:text-2xl font-serif">
-  {debateinfo?.topic}
-</h1>
+              {debateinfo?.topic}
+            </h1>
 
-<p
-  className={`
+            <p
+              className={`
     text-sm
     mt-1
     font-medium
     ${theme.accent}
   `}
->
-{modeNames[debateinfo?.mode]}</p>
+            >
+              {modeNames[debateinfo?.mode]}</p>
+
+            <p
+              className={`
+    mt-2
+    font-mono
+    text-lg
+    ${timeLeft <= 30
+                  ? "text-red-400 animate-pulse"
+                  : timeLeft <= 60
+                    ? "text-amber-400"
+                    : "text-zinc-300"
+                }
+  `}
+            >
+              ⏱ {formattedTime}
+            </p>
 
           </div>
+
 
           <Tap>
             <button
@@ -492,8 +540,8 @@ backdrop-blur-xl backdrop-blur sticky top-0 z-10">
                 duration: 0.25,
               }}
               className={`flex ${message.sender === "user"
-                  ? "justify-end"
-                  : "justify-start"
+                ? "justify-end"
+                : "justify-start"
                 }`}
             >
 
@@ -550,7 +598,7 @@ to-black border ${theme.border}`
             <div className="flex justify-start">
 
               <div
-  className={`
+                className={`
     bg-gradient-to-br
     from-zinc-900
     to-black
@@ -559,7 +607,7 @@ to-black border ${theme.border}`
     px-5
     py-4
   `}
->
+              >
 
                 <div className="flex gap-2">
 
@@ -642,10 +690,10 @@ ${theme.border}
 
       </div>
       {isGeneratingReport && (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    className="
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="
       fixed
       inset-0
       z-[999]
@@ -656,26 +704,26 @@ ${theme.border}
       bg-black/80
       backdrop-blur-md
     "
-  >
+        >
 
-    <motion.div
-      initial={{
-        opacity: 0,
-        scale: 0.95
-      }}
-      animate={{
-        opacity: 1,
-        scale: 1
-      }}
-      className="
+          <motion.div
+            initial={{
+              opacity: 0,
+              scale: 0.95
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1
+            }}
+            className="
         text-center
         px-8
         max-w-md
       "
-    >
+          >
 
-      <div
-        className={`
+            <div
+              className={`
           w-16
           h-16
           mx-auto
@@ -690,40 +738,40 @@ ${theme.border}
 
           ${theme.border}
         `}
-      />
+            />
 
-      <h2 className="text-3xl font-serif mb-4">
-        Generating Report
-      </h2>
+            <h2 className="text-3xl font-serif mb-4">
+              Generating Report
+            </h2>
 
-      <motion.p
-        key={loadingText}
-        initial={{
-          opacity: 0,
-          y: 10
-        }}
-        animate={{
-          opacity: 1,
-          y: 0
-        }}
-        className="
+            <motion.p
+              key={loadingText}
+              initial={{
+                opacity: 0,
+                y: 10
+              }}
+              animate={{
+                opacity: 1,
+                y: 0
+              }}
+              className="
           text-zinc-400
         "
-      >
-        {loadingText}
-      </motion.p>
+            >
+              {loadingText}
+            </motion.p>
 
-    </motion.div>
+          </motion.div>
 
-  </motion.div>
-)}
+        </motion.div>
+      )}
 
       {showEndModal && (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    className="
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="
       fixed
       inset-0
       z-50
@@ -733,12 +781,12 @@ ${theme.border}
       bg-black/70
       backdrop-blur-sm
     "
-  >
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95, y: 20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      className="
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className="
         w-full
         max-w-md
         mx-4
@@ -754,12 +802,12 @@ ${theme.border}
 
         shadow-[0_0_40px_rgba(239,68,68,0.08)]
       "
-    >
+          >
 
-      <div className="flex items-center gap-3 mb-5">
+            <div className="flex items-center gap-3 mb-5">
 
-        <div
-          className="
+              <div
+                className="
             w-10
             h-10
             flex
@@ -773,28 +821,28 @@ ${theme.border}
             text-red-400
             text-xl
           "
-        >
-          ⚠
-        </div>
+              >
+                ⚠
+              </div>
 
-        <h2 className="text-2xl font-serif">
-          End Debate?
-        </h2>
+              <h2 className="text-2xl font-serif">
+                End Debate?
+              </h2>
 
-      </div>
+            </div>
 
-      <p className="text-zinc-400 leading-relaxed mb-8">
-        This debate will be finalized immediately.
-        A performance report will be generated and
-        you won't be able to continue the discussion.
-      </p>
+            <p className="text-zinc-400 leading-relaxed mb-8">
+              This debate will be finalized immediately.
+              A performance report will be generated and
+              you won't be able to continue the discussion.
+            </p>
 
-      <div className="flex gap-3">
+            <div className="flex gap-3">
 
-        <Tap>
-          <button
-          onClick={() => setShowEndModal(false)}
-          className="
+              <Tap>
+                <button
+                  onClick={() => setShowEndModal(false)}
+                  className="
             flex-1
 
             border
@@ -809,18 +857,18 @@ ${theme.border}
             transition-all
             duration-300
           "
-        >
-          Continue Debate
-          </button>
-        </Tap>
+                >
+                  Continue Debate
+                </button>
+              </Tap>
 
-        <Tap>
-          <button
-            onClick={async () => {
-    setShowEndModal(false);
-    await confirmEndDebate();
-  }}
-            className="
+              <Tap>
+                <button
+                  onClick={async () => {
+                    setShowEndModal(false);
+                    await confirmEndDebate();
+                  }}
+                  className="
               flex-1
 
               bg-red-500
@@ -835,16 +883,16 @@ ${theme.border}
               transition-all
               duration-300
             "
-          >
-            End Debate
-          </button>
-        </Tap>
+                >
+                  End Debate
+                </button>
+              </Tap>
 
-      </div>
+            </div>
 
-    </motion.div>
-  </motion.div>
-)}
+          </motion.div>
+        </motion.div>
+      )}
 
     </motion.div>
   )
