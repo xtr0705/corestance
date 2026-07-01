@@ -4,7 +4,6 @@ import supabase from "../lib/supabase";
 import { useNavigate } from "react-router-dom";
 import Tap from "../Component/Tap";
 import FadeInSection from "../Component/FadeInSection";
-import CountUp from "react-countup";
 
 function Profile() {
   const navigate = useNavigate();
@@ -31,7 +30,7 @@ function Profile() {
       return;
     }
 
-    if (file.size > 2*1024*1024) {
+    if (file.size > 2 * 1024 * 1024) {
       alert('Image must be smaller than 2 MB');
       return;
     }
@@ -98,7 +97,7 @@ function Profile() {
           .from('debate_reports')
           .select()
           .eq('user_id', user.id)
-          
+
         reports.forEach((report) => {
           rawReportData.push(report);
         })
@@ -161,6 +160,98 @@ function Profile() {
     <main className="min-h-screen bg-[#09090B] text-white relative overflow-hidden">
 
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.12),transparent_50%)]" />
+
+      <div className="relative border-b border-zinc-800 bg-[#09090B]/80 backdrop-blur-xl">
+  <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+
+    <h2 className="font-serif text-lg sm:text-xl">
+      Profile
+    </h2>
+
+    <div className="flex justify-center gap-3  sm:w-auto">
+
+      <Tap>
+        <button
+          onClick={() => navigate("/")}
+          className="
+            w-22 sm:w-auto
+            
+
+            border
+            border-zinc-800
+
+            px-5
+            py-2
+
+            hover:border-violet-500/30
+            hover:bg-zinc-900
+
+            
+            hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+            transition-all
+            duration-300
+          "
+        >
+          Home
+        </button>
+      </Tap>
+
+      <Tap>
+        <button
+          onClick={() => navigate("/history")}
+          className="
+            w-22 sm:w-auto
+
+            border
+            border-zinc-800
+
+            px-5
+            py-2
+
+            hover:border-violet-500/30
+            hover:bg-zinc-900
+
+            
+            hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+
+            transition-all
+            duration-300
+          "
+        >
+          History
+        </button>
+      </Tap>
+
+      <Tap>
+        <button
+          onClick={() => navigate("/leaderboard")}
+          className="
+            w-29 sm:w-auto
+
+            border
+            border-zinc-800
+            text-white
+
+            hover:border-violet-500/30
+            hover:bg-zinc-900
+            px-3
+            py-2
+
+            
+            hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+
+            transition-all
+            duration-300
+          "
+        >
+          Leaderboard
+        </button>
+      </Tap>
+
+    </div>
+
+  </div>
+</div>
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 
@@ -257,10 +348,7 @@ function Profile() {
                     </p>
 
                     <h3 className="text-3xl sm:text-4xl font-bold mt-4 text-violet-400">
-                      <CountUp
-                      end={profileFinalInfo.debate_No}
-                      duration={1.2}
-                     />
+                      {profileFinalInfo.debate_No}
                     </h3>
 
                   </div>
@@ -291,8 +379,6 @@ function Profile() {
               <h3 className="text-3xl font-serif sm:text-4xl">
                 PERFORMANCE
               </h3>
-
-              <div className="mt-2 h-0.5 w-24 bg-violet-500"></div>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-6">
@@ -328,11 +414,7 @@ function Profile() {
                   </p>
 
                   <h2 className="text-5xl sm:text-6xl font-bold mt-2 text-violet-400">
-                     <CountUp
-                      end={profileFinalInfo.highest_overall}
-                      duration={1.2}
-                      />
-                    
+                    {profileFinalInfo.highest_overall}
                   </h2>
 
                 </div>
@@ -379,10 +461,7 @@ function Profile() {
                   </p>
 
                   <h2 className="text-5xl sm:text-6xl font-bold mt-2 text-violet-400">
-                    <CountUp
-                      end={profileFinalInfo.lowest_overall}
-                      duration={1.2}
-                      />
+                    {profileFinalInfo.lowest_overall}
                   </h2>
 
                 </div>

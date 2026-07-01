@@ -6,6 +6,8 @@ import supabase from "../lib/supabase";
 function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [pfp, setPfp] = useState(null);
+
 
   useEffect(() => {
     const getUser = async () => {
@@ -28,6 +30,23 @@ function Navbar() {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    const fetchPfp = async () => {
+    const{data:{user},}=await supabase.auth.getUser();
+    if(!user) return;
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("pfp")
+      .eq("id", user.id)
+      .single();
+
+      if(!error){
+        setPfp(data.pfp);
+      }
+    };
+    fetchPfp();
+},[])
 
   const logout = async () => {
     await supabase.auth.signOut();
@@ -103,46 +122,67 @@ function Navbar() {
         </div>
 
         {user ? (
-          <div className="hidden md:flex items-center gap-3">
+  <div className="hidden md:flex items-center gap-3">
 
-            <Link
-              to="/create-debate"
-              className="
-                bg-violet-500
-                text-white
-                px-5
-                py-2.5
-                font-medium
-                transition-all
-                duration-300
-                hover:bg-violet-400
-                hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
-              "
-            >
-              Start Debate
-            </Link>
+    <Link
+      to="/create-debate"
+      className="
+        bg-violet-500
+        text-white
+        px-5
+        py-2.5
+        font-medium
+        transition-all
+        duration-300
+        hover:bg-violet-400
+        hover:shadow-[0_0_20px_rgba(139,92,246,0.25)]
+      "
+    >
+      Start Debate
+    </Link>
 
-            <button
-              onClick={logout}
-              className="
-                border
-                border-zinc-800
-                px-5
-                py-2.5
+    <Link to="/profile">
+      <img
+        src={pfp || "/default-avatar.png"}
+        alt="Profile"
+        className="
+          w-11
+          h-11
+          rounded-full
+          object-cover
+          border
+          border-zinc-700
 
-                transition-all
-                duration-300
+          transition-all
+          duration-300
 
-                hover:border-red-500/40
-                hover:bg-red-500/10
-                hover:text-red-400
-              "
-            >
-              Logout
-            </button>
+          hover:border-violet-500
+          hover:scale-105
+        "
+      />
+    </Link>
 
-          </div>
-        ) : (
+    <button
+      onClick={logout}
+      className="
+        border
+        border-zinc-800
+        px-5
+        py-2.5
+
+        transition-all
+        duration-300
+
+        hover:border-red-500/40
+        hover:bg-red-500/10
+        hover:text-red-400
+      "
+    >
+      Logout
+    </button>
+
+  </div>
+) : (
           <div className="hidden md:flex items-center gap-3">
 
             <Link
@@ -292,6 +332,29 @@ function Navbar() {
                   >
                     Start Debate
                   </Link>
+
+                  <Link
+  to="/profile"
+  onClick={() => setMobileOpen(false)}
+  className="
+    flex
+    items-center
+    gap-3
+
+    border
+    border-zinc-800
+
+    p-3
+  "
+>
+  <img
+    src={pfp || "/default-avatar.png"}
+    alt="Profile"
+    className="w-10 h-10 rounded-full object-cover"
+  />
+
+  <span>Profile</span>
+</Link>
 
                   <button
                     onClick={logout}
