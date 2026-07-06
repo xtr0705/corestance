@@ -92,7 +92,7 @@ justify-center
   <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
 
     <h2 className="font-serif text-lg sm:text-xl">
-      DebateArena
+      CoreStance
     </h2>
 
     <div className="flex justify-center gap-3 w-full sm:w-auto">

@@ -258,7 +258,7 @@ function Profile() {
         <div className="mb-14 text-center">
 
           <p className="uppercase tracking-[0.35em] text-slate-500 mb-4">
-            DebateArena
+            CoreStance
           </p>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif">

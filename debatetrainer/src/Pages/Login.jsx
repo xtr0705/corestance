@@ -63,7 +63,7 @@ function Login() {
           <div className="text-center mb-10">
 
             <p className="text-zinc-500 uppercase tracking-widest mb-4">
-              DebateArena
+              CoreStance
             </p>
 
             <h1 className="text-5xl font-serif mb-4">

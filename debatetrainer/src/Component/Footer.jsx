@@ -11,7 +11,7 @@ function Footer() {
       <div>
 
         <h3 className="text-xl font-serif font-semibold mb-4">
-          Debate Arena
+          CoreStance
         </h3>
 
         <p className="text-zinc-400 leading-relaxed">
@@ -123,7 +123,7 @@ function Footer() {
     <div className="border-t border-zinc-800 mt-12 pt-8">
 
       <p className="text-center text-zinc-500 text-sm">
-        © 2026 DebateArena. All rights reserved.
+        © 2026 CoreStance. All rights reserved.
       </p>
 
     </div>

@@ -62,7 +62,7 @@ function Home() {
             <div className="max-w-6xl">
 
               <p className="text-slate-500 uppercase tracking-widest mb-6">
-                DebateArena
+                CoreStance
               </p>
 
               <h1 className="text-4xl sm:text-5xl md:text-7xl leading-tight font-heading font-serif">
@@ -169,7 +169,7 @@ function Home() {
               </h2>
 
               <p className="text-slate-400 text-lg font-heading leading-relaxed">
-                DebateArena was built to do exactly that.
+                CoreStance was built to do exactly that.
                 Whether you're discussing technology, philosophy,
                 business, ethics, or everyday ideas, the AI will challenge
                 your assumptions, attack weak arguments, and force you
@@ -439,7 +439,7 @@ function Home() {
 
                 <img
                   src="/AIchat.png"
-                  alt="DebateArena chat"
+                  alt="CoreStance chat"
                   className="
       relative
       rounded-2xl
