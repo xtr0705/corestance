@@ -71,22 +71,22 @@ CoreStance is an AI-powered debate platform where users can engage in structured
 
 ## Home Page
 
-![Home Page](./debatetrainer/screenshots/CoreStance-hero.png)
+![Home Page](./corestance/screenshots/CoreStance-hero.png)
 
 ## Debate Chat
 
-![Debate Chat](./debatetrainer/screenshots/chat.png)
+![Debate Chat](./corestance/screenshots/chat.png)
 
 
 ## Debate Report
 
-![Debate Report](./debatetrainer/screenshots/report.png)
+![Debate Report](./corestance/screenshots/report.png)
 
 ## Leaderboard
-![Leaderboard](./debatetrainer/screenshots/Screenshot-2026-07-01-162432.png)
+![Leaderboard](./corestance/screenshots/Screenshot-2026-07-01-162432.png)
 
 ## Profile
-![Profile](./debatetrainer/screenshots/Screenshot-2026-07-01-163006.png)
+![Profile](./corestance/screenshots/Screenshot-2026-07-01-163006.png)
 
 
 ## Installation
