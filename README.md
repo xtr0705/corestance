@@ -1,8 +1,8 @@
-# DebateArena
+# CoreStance
 
 Challenge your ideas against AI opponents that refuse to agree with you.
 
-DebateArena is an AI-powered debate platform where users can engage in structured discussions with different AI personalities, receive detailed performance analysis, and track their progress over time.
+CoreStance is an AI-powered debate platform where users can engage in structured discussions with different AI personalities, receive detailed performance analysis, and track their progress over time.
 
 ## Features
 
@@ -71,7 +71,7 @@ DebateArena is an AI-powered debate platform where users can engage in structure
 
 ## Home Page
 
-![Home Page](./debatetrainer/screenshots/Screenshot-2026-07-01-161610.png)
+![Home Page](./debatetrainer/screenshots/CoreStance-hero.png)
 
 ## Debate Chat
 
@@ -95,7 +95,7 @@ Clone the repository:
 
 ```bash
 git clone <repo-url>
-cd DebateArena
+cd CoreStance
 ```
 
 Install dependencies:
