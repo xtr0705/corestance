@@ -86,7 +86,7 @@ CoreStance is an AI-powered debate platform where users can engage in structured
 ![Leaderboard](./corestance/screenshots/Screenshot-2026-07-01-162432.png)
 
 ## Profile
-![Profile](./corestance/screenshots/Screenshot-2026-07-01-163006.png)
+![Profile](./corestance/screenshots/CoreStance-profile.png)
 
 
 ## Installation
